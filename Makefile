@@ -25,7 +25,7 @@ $(LIBFT):
 	@make -C $(LIBFT_DIR) all
 
 $(OBJDIR)/%.o: %.c | $(OBJDIR)
-	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+	@$(CC) $(INCLUDE) -c $< -o $@
 
 $(OBJDIR):
 	@mkdir -p $(OBJDIR)/src

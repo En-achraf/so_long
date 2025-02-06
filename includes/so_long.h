@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 12:47:05 by acennadi          #+#    #+#             */
-/*   Updated: 2025/02/02 12:51:08 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/02/06 09:10:55 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 // includes
 # include "libft.h"
-# include "mlx.h"
+# include <mlx.h>
 # include <stdlib.h>
 # include <unistd.h>
 
@@ -27,11 +27,21 @@
 typedef struct s_data
 {
 	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
+	void	*mlx;
+	void	*mlx_win;
 }			t_data;
+
+typedef struct  s_map
+{
+//for background
+	int		width;
+	int		height;
+	void *background;
+//for wall
+	int	x;
+	int	y;
+	void *wall;
+}			t_map;
 
 int			key_hook(int keycode, void *param);
 

@@ -26,17 +26,17 @@
 # define BUFFER_SIZE 1024
 
 // functions
-int		key_hook(int keycode, void *param);
-void	ft_print_error(int num);
-char	*ft_read_map(char *str);
-char	*valid_format(char *str);
+int			key_hook(int keycode, void *param);
+void		ft_print_error(int num);
+char		*ft_read_map(char *str);
+char		*valid_format(char *str);
 
 // structs
 typedef struct s_map
 {
-    void *wall;
-    void *collectible;
-    void *exit;
-}		t_map;
+	void	*wall;
+	void	*collectible;
+	void	*exit;
+}			t_map;
 
 #endif

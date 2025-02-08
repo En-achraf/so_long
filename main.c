@@ -6,13 +6,13 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 16:00:03 by acennadi          #+#    #+#             */
-/*   Updated: 2025/02/08 17:02:24 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/02/08 17:07:21 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/so_long.h"
 
-char *check_work(char *av)
+char	*check_work(char *av)
 {
 	char	*map;
 
@@ -21,20 +21,21 @@ char *check_work(char *av)
 	else
 		ft_print_error(3);
 	map = ft_read_map(av);
-	if (!map) {
-        free(map);
+	if (!map)
+	{
+		free(map);
 		return (NULL);
-    }
-	return(map);
+	}
+	return (map);
 }
 
 int	main(int ac, char **av)
 {
-    char *ptr;
+	char	*ptr;
 
 	if (ac != 2)
-		return (ft_print_error(1) ,0);
-    ptr = check_work(av[1]);
-    if(!ptr)
-        return 0;
+		return (ft_print_error(1), 0);
+	ptr = check_work(av[1]);
+	if (!ptr)
+		return (0);
 }

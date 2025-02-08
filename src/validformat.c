@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validmap.c                                         :+:      :+:    :+:   */
+/*   validformat.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 16:00:01 by acennadi          #+#    #+#             */
-/*   Updated: 2025/02/08 16:00:02 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/02/08 16:22:48 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-char	*valid_map(char *str)
+char	*valid_format(char *str)
 {
 	int		len;
 	char	*s;

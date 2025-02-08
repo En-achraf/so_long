@@ -7,12 +7,16 @@ int main(int ac, char **av) {
         ft_print_error(1);
         return (0);
     }
+
+    if (ft_strncmp(valid_map(av[1]), "not valid format", 15) == 0)
+        return (ft_print_error(2) , 1);
+
     map = ft_read_map(av[1]);
     if (!map) {
-        ft_print_error(2);
         return (1);
     }
-    printf("%s", map);
+
+    ft_putstr_fd(map, 1);
     free(map);
     return (0);
 }

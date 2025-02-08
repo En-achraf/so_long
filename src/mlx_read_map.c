@@ -36,11 +36,11 @@ static char	*read_loop(int fd, char *saved)
 	{
 		count = read(fd, buffer, BUFFER_SIZE);
 		if (count == -1)
-			return handle_read_error(buffer, saved, fd);
+			return (handle_read_error(buffer, saved, fd));
 		buffer[count] = '\0';
 		saved = ft_stjoin(saved, buffer);
 		if (!saved)
-			return handle_read_error(buffer, NULL, fd);
+			return (handle_read_error(buffer, NULL, fd));
 	}
 	free(buffer);
 	return (saved);
@@ -61,4 +61,3 @@ char	*ft_read_map(char *str)
 	close(fd);
 	return (saved);
 }
-

@@ -17,6 +17,7 @@
 int		key_hook(int keycode, void *param);
 void	ft_print_error(int num);
 char	*ft_read_map(char *str);
+char	*valid_map(char *str);
 
 // structs
 typedef struct s_map

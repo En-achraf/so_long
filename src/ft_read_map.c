@@ -12,7 +12,7 @@
 
 #include "../includes/so_long.h"
 
-static char	*ft_stjoin(char *s1, char const *s2)
+static char	*ft_stjoin(char *s1, const char *s2)
 {
 	char	*str;
 
@@ -22,7 +22,7 @@ static char	*ft_stjoin(char *s1, char const *s2)
 	if (!str)
 		return (NULL);
 	ft_strlcpy(str, s1, ft_strlen(s1) + 1);
-	ft_strlcpy((str + ft_strlen(s1)), (s2), (ft_strlen(s2) + 1));
+	ft_strlcpy(str + ft_strlen(s1), s2, ft_strlen(s2) + 1);
 	free(s1);
 	return (str);
 }
@@ -35,7 +35,29 @@ static char	*handle_read_error(char *buffer, char *saved, int fd)
 	return (NULL);
 }
 
-static char	*read_loop(int fd, char *saved)
+static void	update_dimensions(char *saved, int *width, int *height)
+{
+	int	i;
+
+	i = 0;
+	if (*height == 0) {
+		while (saved[i] && saved[i] != '\n') {
+			i++;
+		}
+		*width = (i - 1);
+	}
+	i = 0;
+	while (saved[i])
+	{
+		if (saved[i] == '\n')
+			(*height)++;
+		i++;
+	}
+	if (saved[i - 1] != '\n' && i > 0) 
+		(*height)++;
+}
+
+static char	*read_loop(int fd, char *saved, int *width, int *height)
 {
 	char	*buffer;
 	ssize_t	count;
@@ -43,6 +65,7 @@ static char	*read_loop(int fd, char *saved)
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);
+
 	count = 1;
 	while (count > 0)
 	{
@@ -54,11 +77,12 @@ static char	*read_loop(int fd, char *saved)
 		if (!saved)
 			return (handle_read_error(buffer, NULL, fd));
 	}
+	update_dimensions(saved, width, height);
 	free(buffer);
 	return (saved);
 }
 
-char	*ft_read_map(char *str)
+char	*ft_read_map(char *str, int *width, int *height)
 {
 	int		fd;
 	char	*saved;
@@ -69,7 +93,7 @@ char	*ft_read_map(char *str)
 	saved = ft_strdup("");
 	if (!saved)
 		return (NULL);
-	saved = read_loop(fd, saved);
+	saved = read_loop(fd, saved, width, height);
 	close(fd);
 	return (saved);
 }

@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 16:00:03 by acennadi          #+#    #+#             */
-/*   Updated: 2025/02/08 17:07:21 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/02/10 14:26:48 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ char	*check_work(char *av)
 {
 	char	*map;
 	t_window data;
-
+	
+	data.height = 0;
+	data.width = 0;
 	if (ft_strncmp(valid_format(av), "not valid format", 15) == 0)
 		return (ft_print_error(2), NULL);
 	else
@@ -27,7 +29,6 @@ char	*check_work(char *av)
 		ft_putstr_fd("but file doesn't exist\n", 1);
 		return (NULL);
 	}
-	ft_putnbr_fd(data.width, 1);
 	return (map);
 }
 
@@ -45,7 +46,6 @@ int	main(int ac, char **av)
 		return (0);
 		free(ptr);
 	}
-	
 	return (0);
 }
 

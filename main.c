@@ -15,17 +15,19 @@
 char	*check_work(char *av)
 {
 	char	*map;
+	t_window data;
 
 	if (ft_strncmp(valid_format(av), "not valid format", 15) == 0)
 		return (ft_print_error(2), NULL);
 	else
 		ft_print_error(3);
-	map = ft_read_map(av);
+	map = ft_read_map(av, &data.width, &data.height);
 	if (!map)
 	{
-		free(map);
+		ft_putstr_fd("but file doesn't exist\n", 1);
 		return (NULL);
 	}
+	ft_putnbr_fd(data.width, 1);
 	return (map);
 }
 
@@ -34,8 +36,16 @@ int	main(int ac, char **av)
 	char	*ptr;
 
 	if (ac != 2)
-		return (ft_print_error(1), 0);
-	ptr = check_work(av[1]);
-	if (!ptr)
+	{
+		ft_print_error(1);
 		return (0);
+	}
+	ptr = check_work(av[1]);
+	if (!ptr) {
+		return (0);
+		free(ptr);
+	}
+	
+	return (0);
 }
+

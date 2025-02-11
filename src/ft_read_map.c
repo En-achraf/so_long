@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 16:00:06 by acennadi          #+#    #+#             */
-/*   Updated: 2025/02/10 14:17:22 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/02/10 14:37:13 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ static void	update_dimensions(char *saved, int *width, int *height)
 	int	i;
 
 	i = 0;
-	if (*height == 0) {
+	if (*height == 0)
+	{
 		while (saved[i] && saved[i] != '\n')
 			i++;
 		*width = i;

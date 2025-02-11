@@ -41,8 +41,9 @@ typedef struct s_window
 
 typedef struct s_map
 {
-	void	**grad;
-	void	*wall;
+	char	**grad;
+	int		map_width;
+	int 	map_height;
 	void	*collectible;
 	void	*exit;
 }			t_map;

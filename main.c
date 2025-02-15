@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 16:00:03 by acennadi          #+#    #+#             */
-/*   Updated: 2025/02/10 15:07:07 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/02/15 15:18:51 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char	*check_work(char *av)
 int	main(int ac, char **av)
 {
 	char	*ptr;
+	t_window data;
 
 	if (ac != 2)
 	{
@@ -47,6 +48,6 @@ int	main(int ac, char **av)
 		return (0);
 		free(ptr);
 	}
-	ft_valid_map(ptr);
+	ft_valid_map(ptr, data.width, data.height);
 	return (0);
 }

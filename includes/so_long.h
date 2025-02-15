@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 15:59:58 by acennadi          #+#    #+#             */
-/*   Updated: 2025/02/15 14:49:51 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/02/15 17:00:23 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ char		*ft_read_map(char *str, int *width, int *height);
 char		*valid_format(char *str);
 void		ft_render_map(const char *str);
 char		**ft_valid_map(char *str, int width, int height);
+void		ft_free_grad(char **grad, int height);
 // structs
 typedef struct s_window
 {

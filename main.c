@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 16:00:03 by acennadi          #+#    #+#             */
-/*   Updated: 2025/02/15 15:35:15 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/02/15 16:59:39 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	main(int ac, char **av)
 {
 	char	*ptr;
 	int		width, height;
+	char	**grad;
 
 	if (ac != 2)
 	{
@@ -50,7 +51,9 @@ int	main(int ac, char **av)
 	ptr = check_work(av[1], &width, &height);
 	if (!ptr)
 		return (free(ptr), 0);
-	ft_valid_map(ptr, width, height);
+	grad = ft_valid_map(ptr, width, height);
 	free(ptr);
+	if (grad)
+		ft_free_grad(grad, height);
 	return (0);
 }

@@ -1,6 +1,6 @@
 #flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Iincludes $(LIBFT_INC)
+CFLAGS = -g -Wall -Wextra -Werror -Iincludes $(LIBFT_INC)
 MLXLIB = -lXext -lX11 -lm -lz
 LIBMLX = -L./usr/local/lib -lmlx
 INCLUDE = -I./usr/local/include

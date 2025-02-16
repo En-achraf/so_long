@@ -9,7 +9,7 @@ LIBFT_LINK = -L$(LIBFT_DIR) -l:libft.a
 
 #resource
 SRCS = main.c src/ft_keyhook.c src/ft_error.c src/ft_read_map.c \
-src/ft_valid_format.c src/ft_valid_map.c
+src/ft_valid_format.c src/ft_valid_map.c src/ft_extra_functions.c
 OBJECTS = $(SRCS:%.c=$(OBJDIR)/%.o)
 LIBFT_DIR = includes
 OBJDIR = obj

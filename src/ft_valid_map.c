@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 15:18:43 by acennadi          #+#    #+#             */
-/*   Updated: 2025/02/16 16:04:40 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/02/16 16:07:56 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	**ft_valid_map(char *str, int width, int height)
 	if (!data.grad)
 		return (ft_putstr_fd("Error: Failed to create 2D map\n", 2), NULL);
 	y = 0;
-	while (y < height)
+	while (y++ < height)
 	{
 		x = 0;
 		while (x++ < width)
@@ -81,7 +81,6 @@ char	**ft_valid_map(char *str, int width, int height)
 			if (!mapvar)
 				return (ft_prer(4), ft_free_grad(data.grad, height), NULL);
 		}
-		y++;
 	}
 	if (!ft_check_map_contents(player, exit, collectible))
 		return (ft_prer(5), ft_free_grad(data.grad, height), NULL);

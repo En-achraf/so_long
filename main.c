@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 16:00:03 by acennadi          #+#    #+#             */
-/*   Updated: 2025/02/16 14:12:56 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/02/16 16:07:12 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ char	*check_work(char *av, int *width, int *height)
 	data.height = 0;
 	data.width = 0;
 	if (ft_strncmp(valid_format(av), "not valid format", 15) == 0)
-		return (ft_print_error(2), NULL);
+		return (ft_prer(2), NULL);
 	else
-		ft_print_error(3);
+		ft_prer(3);
 	map = ft_read_map(av, &data.width, &data.height);
 	if (!map)
 	{
@@ -41,7 +41,7 @@ int	main(int ac, char **av)
 
 	int (width), (height);
 	if (ac != 2)
-		return (ft_print_error(1), 0);
+		return (ft_prer(1), 0);
 	ptr = check_work(av[1], &width, &height);
 	if (!ptr)
 		return (free(ptr), 0);

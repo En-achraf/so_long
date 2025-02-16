@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 15:18:43 by acennadi          #+#    #+#             */
-/*   Updated: 2025/02/16 16:07:56 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/02/16 16:37:32 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,14 @@ int	ft_validate_map_char(char c, int *player, int *collectible, int *exit)
 	return (1);
 }
 
-int	ft_check_map_contents(int player, int exit, int collectible)
+int ft_check_boarder(char c) {
+	t_window data;
+}
+
+int	ft_check_map_contents(char c ,int player, int exit, int collectible)
 {
+	if (!(ft_check_boarder(c)))
+		return (0);
 	if (player != 1)
 		return (0);
 	if (exit != 1)
@@ -70,11 +76,11 @@ char	**ft_valid_map(char *str, int width, int height)
 	data.grad = ft_get_grad(str, width, height);
 	if (!data.grad)
 		return (ft_putstr_fd("Error: Failed to create 2D map\n", 2), NULL);
-	y = 0;
-	while (y++ < height)
+	y = -1;
+	while (++y < height)
 	{
-		x = 0;
-		while (x++ < width)
+		x = -1;
+		while (++x < width)
 		{
 			mapvar = ft_validate_map_char(data.grad[y][x], &player,
 					&collectible, &exit);
@@ -82,7 +88,7 @@ char	**ft_valid_map(char *str, int width, int height)
 				return (ft_prer(4), ft_free_grad(data.grad, height), NULL);
 		}
 	}
-	if (!ft_check_map_contents(player, exit, collectible))
+	if (!ft_check_map_contents(data.grad[y][x], player, exit, collectible))
 		return (ft_prer(5), ft_free_grad(data.grad, height), NULL);
 	return (data.grad);
 }

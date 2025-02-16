@@ -6,13 +6,13 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 16:00:08 by acennadi          #+#    #+#             */
-/*   Updated: 2025/02/08 16:07:28 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/02/16 16:03:06 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-void	ft_print_error(int num)
+void	ft_prer(int num)
 {
 	if (num == 0)
 		ft_putstr_fd("the process Done Successfully\n", 2);
@@ -22,4 +22,8 @@ void	ft_print_error(int num)
 		ft_putstr_fd("not valid format\n", 2);
 	else if (num == 3)
 		ft_putstr_fd("valid format\n", 2);
+	else if (num == 4)
+		ft_putstr_fd("Error: Invalid character in map\n", 2);
+	else if (num == 5)
+		ft_putstr_fd("Error: Invalid player, exit, or collectible count\n", 2);
 }

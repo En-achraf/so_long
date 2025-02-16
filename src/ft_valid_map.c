@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 14:35:04 by acennadi          #+#    #+#             */
-/*   Updated: 2025/02/16 14:26:12 by acennadi         ###   ########.fr       */
+/*   Created: 2025/02/16 15:18:43 by acennadi          #+#    #+#             */
+/*   Updated: 2025/02/16 16:04:40 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,42 +62,28 @@ int	ft_check_map_contents(int player, int exit, int collectible)
 char	**ft_valid_map(char *str, int width, int height)
 {
 	t_map	data;
-	int		player;
-	int		collectible;
-	int		exit;
-	int		y;
-	int		x;
 
+	int (player), (collectible), (exit), (y), (x), (mapvar);
 	player = 0;
 	collectible = 0;
 	exit = 0;
 	data.grad = ft_get_grad(str, width, height);
 	if (!data.grad)
-	{
-		ft_putstr_fd("Error: Failed to create 2D map\n", 2);
-		return (NULL);
-	}
+		return (ft_putstr_fd("Error: Failed to create 2D map\n", 2), NULL);
 	y = 0;
 	while (y < height)
 	{
 		x = 0;
-		while (x < width)
+		while (x++ < width)
 		{
-			if (!ft_validate_map_char(data.grad[y][x], &player, &collectible, &exit))
-			{
-				ft_free_grad(data.grad, height);
-				ft_putstr_fd("Error: Invalid character in map\n", 2);
-				return (NULL);
-			}
-			x++;
+			mapvar = ft_validate_map_char(data.grad[y][x], &player,
+					&collectible, &exit);
+			if (!mapvar)
+				return (ft_prer(4), ft_free_grad(data.grad, height), NULL);
 		}
 		y++;
 	}
 	if (!ft_check_map_contents(player, exit, collectible))
-	{
-		ft_free_grad(data.grad, height);
-		ft_putstr_fd("Error: Invalid player, exit, or collectible count\n", 2);
-		return (NULL);
-	}
+		return (ft_prer(5), ft_free_grad(data.grad, height), NULL);
 	return (data.grad);
 }

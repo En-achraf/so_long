@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 15:59:58 by acennadi          #+#    #+#             */
-/*   Updated: 2025/02/15 17:00:23 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/02/16 15:58:55 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 // functions
 int			key_hook(int keycode, void *param);
-void		ft_print_error(int num);
+void		ft_prer(int num);
 char		*ft_read_map(char *str, int *width, int *height);
 char		*valid_format(char *str);
 void		ft_render_map(const char *str);

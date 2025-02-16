@@ -48,13 +48,48 @@ int	ft_validate_map_char(char c, int *player, int *collectible, int *exit)
 	return (1);
 }
 
-int ft_check_boarder(char c) {
-	t_window data;
+int ft_check_boarder() {
+	t_window win;
+	t_map	data;
+	
+	int (x), (y);
+	y = 0;
+    while (y < win.height)
+    {
+        x = 0;
+        while (x < win.width)
+        {
+            if (y == 0 || y == win.height - 1)
+            {
+                if (data.grad[y][x] != '1')
+                {
+                    ft_putstr_fd("Error: Map is not surrounded by walls\n", 2);
+                    ft_free_grad(data.grad, win.height);
+                    return (1);
+                }
+            }
+            else
+            {
+                if (x == 0 || x == win.width - 1)
+                {
+                    if (data.grad[y][x] != '1')
+                    {
+                        ft_putstr_fd("Error: Map is not surrounded by walls\n", 2);
+                        ft_free_grad(data.grad, win.height);
+                        return (1);
+                    }
+                }
+            }
+            x++;
+        }
+        y++;
+    }
+	return (0);
 }
 
 int	ft_check_map_contents(char c ,int player, int exit, int collectible)
 {
-	if (!(ft_check_boarder(c)))
+	if (!(ft_check_boarder()))
 		return (0);
 	if (player != 1)
 		return (0);

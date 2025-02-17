@@ -19,7 +19,7 @@ char	*check_work(char *av, int *width, int *height)
 
 	data.height = 0;
 	data.width = 0;
-	if (ft_strncmp(valid_format(av), "not valid format", 15) == 0)
+	if (ft_strncmp(valid_format(av), "not valid file format", 15) == 0)
 		return (ft_prer(2), NULL);
 	else
 		ft_prer(3);

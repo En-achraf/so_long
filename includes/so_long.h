@@ -48,8 +48,8 @@ typedef struct s_map
 	void	*collectible;
 	void	*exit;
 	int		player;
-	int		collectible;
-	int		exit;
+	int		collectible1;
+	int		exit1;
 	int		y;
 	int		x;
 	int		mapvar;

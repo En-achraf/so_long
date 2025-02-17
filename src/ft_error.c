@@ -19,9 +19,9 @@ void	ft_prer(int num)
 	else if (num == 1)
 		ft_putstr_fd("no map available to use, try again\n", 2);
 	else if (num == 2)
-		ft_putstr_fd("not valid format\n", 2);
+		ft_putstr_fd("not valid file format\n", 2);
 	else if (num == 3)
-		ft_putstr_fd("valid format\n", 2);
+		ft_putstr_fd("valid file format\n", 2);
 	else if (num == 4)
 		ft_putstr_fd("Error: Invalid character in map\n", 2);
 	else if (num == 5)

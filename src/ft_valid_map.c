@@ -88,8 +88,8 @@ char	**ft_valid_map(char *str, int width, int height)
 	t_map	data;
 
 	data.player = 0;
-	data.collectible = 0;
-	data.exit = 0;
+	data.collectible1 = 0;
+	data.exit1 = 0;
 	data.grad = ft_get_grad(str, width, height);
 	if (!data.grad)
 		return (ft_putstr_fd("Error: Failed to create 2D map\n", 2), NULL);
@@ -100,14 +100,14 @@ char	**ft_valid_map(char *str, int width, int height)
 		while (++data.x < width)
 		{
 			data.mapvar = ft_validate_map_char(data.grad[data.y][data.x],
-					&data.player, &data.collectible, &data.exit);
+					&data.player, &data.collectible1, &data.exit1);
 			if (!data.mapvar)
 				return (ft_free_grad(data.grad, height), ft_prer(4), NULL);
 		}
 	}
 	if (!ft_check_border(data.grad, width, height))
 		return (ft_free_grad(data.grad, height), NULL);
-	if (!ft_check_map_contents(data.player, data.exit, data.collectible))
+	if (!ft_check_map_contents(data.player, data.exit1, data.collectible1))
 		return (ft_free_grad(data.grad, height), ft_prer(5), NULL);
 	return (data.grad);
 }

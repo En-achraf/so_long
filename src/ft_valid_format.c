@@ -20,8 +20,8 @@ char	*valid_format(char *str)
 	s = ".ber";
 	len = ft_strlen(str);
 	if (len < 4)
-		return ("not valid format");
+		return ("not valid file format");
 	if (ft_strncmp(&str[len - 4], s, 4) != 0)
-		return ("not valid format");
-	return ("valid format");
+		return ("not valid file format");
+	return ("valid file format");
 }

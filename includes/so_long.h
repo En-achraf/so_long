@@ -47,6 +47,12 @@ typedef struct s_map
 	int		map_height;
 	void	*collectible;
 	void	*exit;
+	int		player;
+	int		collectible;
+	int		exit;
+	int		y;
+	int		x;
+	int		mapvar;
 }			t_map;
 
 #endif

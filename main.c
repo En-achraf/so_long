@@ -46,7 +46,6 @@ int	main(int ac, char **av)
 	if (!ptr)
 		return (free(ptr), 0);
 	grad = ft_valid_map(ptr, width, height);
-	free(ptr);
 	if (grad)
 		ft_free_grad(grad, height);
 	return (0);

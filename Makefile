@@ -1,6 +1,6 @@
 #flags
 CC = cc
-CFLAGS = -g -Wall -Wextra -Werror -Iincludes $(LIBFT_INC)
+CFLAGS = -Wall -Wextra -Werror -Iincludes $(LIBFT_INC)
 MLXLIB = -lXext -lX11 -lm -lz
 LIBMLX = -L./usr/local/lib -lmlx
 INCLUDE = -I./usr/local/include
@@ -20,22 +20,22 @@ NAME = so_long
 all: $(NAME)
 
 $(NAME): $(OBJECTS) $(LIBFT)
-	@$(CC) $(OBJECTS) $(LIBMLX) $(MLXLIB) $(LIBFT_LINK) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJECTS) $(LIBMLX) $(MLXLIB) $(LIBFT_LINK) -o $(NAME)
 
 $(LIBFT):
-	@make -C $(LIBFT_DIR) all
+	make -C $(LIBFT_DIR) all
 
 $(OBJDIR)/%.o: %.c | $(OBJDIR)
-	@$(CC) $(INCLUDE) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 $(OBJDIR):
-	@mkdir -p $(OBJDIR)/src
+	mkdir -p $(OBJDIR)/src
 
 clean:
-	@rm -rf $(OBJDIR)
+	rm -rf $(OBJDIR)
 
 fclean: clean
-	@rm -f $(NAME)
+	rm -f $(NAME)
 
 re: fclean all
 

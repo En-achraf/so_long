@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 15:59:58 by acennadi          #+#    #+#             */
-/*   Updated: 2025/02/18 20:04:29 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/02/18 20:16:55 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@
 # define KEY_RIGHT 65363
 
 // Structures
-typedef struct s_var {
+typedef struct s_var
+{
 	int			collectible;
 	char		**grad;
 	int			player;
@@ -52,7 +53,8 @@ typedef struct s_var {
 	int			y;
 }				t_var;
 
-typedef struct s_image {
+typedef struct s_image
+{
 	void		*img;
 	char		*addr;
 	int			bits_per_pixel;
@@ -62,14 +64,16 @@ typedef struct s_image {
 	int			height;
 }				t_image;
 
-typedef struct s_window {
+typedef struct s_window
+{
 	void		*mlx;
 	void		*win;
 	int			width;
 	int			height;
 }				t_window;
 
-typedef struct s_map {
+typedef struct s_map
+{
 	char		**grad;
 	int			width;
 	int			height;
@@ -80,7 +84,8 @@ typedef struct s_map {
 	int			moves;
 }				t_map;
 
-typedef struct s_game {
+typedef struct s_game
+{
 	t_window	win;
 	t_map		map;
 	t_image		wall;
@@ -92,26 +97,26 @@ typedef struct s_game {
 
 // Function Prototypes (Parameters preserved as per request)
 // Initialization
-void		ft_init_game(t_game *game, char *map_path);
-void		ft_load_textures(t_game *game);
+void			ft_init_game(t_game *game, char *map_path);
+void			ft_load_textures(t_game *game);
 
 // Map Handling
-char		*ft_read_map(char *str, int *width, int *height);
-char		**ft_valid_map(char *str, int width, int height);
-void		ft_free_map(t_game *game);
+char			*ft_read_map(char *str, int *width, int *height);
+char			**ft_valid_map(char *str, int width, int height);
+void			ft_free_map(t_game *game);
 
 // Rendering
-int			ft_render_frame(t_game *game);
-void		ft_draw_tile(t_game *game, int x, int y);
-void		ft_render_map(const char *str);
+int				ft_render_frame(t_game *game);
+void			ft_draw_tile(t_game *game, int x, int y);
+void			ft_render_map(const char *str);
 
 // Hooks & Events
-int			ft_key_hook(int keycode, t_game *game);
-int			ft_close_game(t_game *game);
+int				ft_key_hook(int keycode, t_game *game);
+int				ft_close_game(t_game *game);
 
 // Utilities
-void		ft_error(int error_code);
-void		ft_free_grad(char **grad, int height);
-char		*valid_format(char *str);
+void			ft_error(int error_code);
+void			ft_free_grad(char **grad, int height);
+char			*valid_format(char *str);
 
 #endif

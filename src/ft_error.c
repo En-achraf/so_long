@@ -12,7 +12,7 @@
 
 #include "../includes/so_long.h"
 
-void		ft_error(int error_code)
+void	ft_error(int error_code)
 {
 	if (error_code == 0)
 		ft_putstr_fd("the process Done Successfully\n", 2);

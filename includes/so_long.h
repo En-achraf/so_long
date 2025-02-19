@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 15:59:58 by acennadi          #+#    #+#             */
-/*   Updated: 2025/02/18 20:16:55 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/02/19 08:46:07 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void			ft_load_textures(t_game *game);
 
 // Map Handling
 char			*ft_read_map(char *str, int *width, int *height);
-char			**ft_valid_map(char *str, int width, int height);
+char			**ft_valid_map(char *str, int *width, int *height);
 void			ft_free_map(t_game *game);
 
 // Rendering
@@ -111,7 +111,7 @@ void			ft_draw_tile(t_game *game, int x, int y);
 void			ft_render_map(const char *str);
 
 // Hooks & Events
-int				ft_key_hook(int keycode, t_game *game);
+int 			ft_key_hook(int keycode, void *param);
 int				ft_close_game(t_game *game);
 
 // Utilities

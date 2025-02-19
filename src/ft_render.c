@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 20:18:39 by acennadi          #+#    #+#             */
-/*   Updated: 2025/02/18 20:38:22 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/02/19 08:35:40 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_init_game(t_game *game, char *map_path)
 {
 	game->win.mlx = mlx_init();
 	if (!game->win.mlx)
-		ft_error(ERR_MLX);
+		ft_error(6);
 	game->map.grad = ft_valid_map(map_path, &game->map.width,
 			&game->map.height);
 	if (!game->map.grad)
@@ -24,7 +24,7 @@ void	ft_init_game(t_game *game, char *map_path)
 	game->win.win = mlx_new_window(game->win.mlx, game->map.width * TILE_SIZE,
 			game->map.height * TILE_SIZE, "so_long");
 	if (!game->win.win)
-		ft_error(ERR_MLX);
+		ft_error(7);
 	game->wall.img = mlx_xpm_file_to_image(game->win.mlx, "textures/wall.xpm",
 			&game->wall.width, &game->wall.height);
 	game->floor.img = mlx_xpm_file_to_image(game->win.mlx, "textures/floor.xpm",

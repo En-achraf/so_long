@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 16:00:03 by acennadi          #+#    #+#             */
-/*   Updated: 2025/02/18 20:26:16 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/02/19 08:34:22 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int ac, char **av)
 		ft_error(1);
 	ft_bzero(&game, sizeof(t_game));
 	map_str = check_work(av[1], &width, &height);
-	game.map.grad = ft_valid_map(map_str, width, height);
+	game.map.grad = ft_valid_map(map_str, &width, &height);
 	if (!game.map.grad)
 	{
 		free(map_str);

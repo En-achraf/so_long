@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 16:00:08 by acennadi          #+#    #+#             */
-/*   Updated: 2025/02/18 20:52:31 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/02/19 13:06:53 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ void	ft_error(int error_code)
 	else if (error_code == 6)
 		ft_putstr_fd("MLX Faild Initialize connection\n", 2);
 	else if (error_code == 7)
-		ft_putstr_fd("Invalid map", 2);
+		ft_putstr_fd("Error: Failed to load textures\n", 2);
 	else if (error_code == 8)
 		ft_putstr_fd("Faild Initialize Window\n", 2);
+	else if (error_code == ERR_MAP)
+		ft_putstr_fd("indfeine error", 2);
 }

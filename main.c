@@ -5,48 +5,45 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/08 16:00:03 by acennadi          #+#    #+#             */
-/*   Updated: 2025/02/19 08:34:22 by acennadi         ###   ########.fr       */
+/*   Created: 2025/02/24 09:43:29 by acennadi          #+#    #+#             */
+/*   Updated: 2025/03/01 18:13:38 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/so_long.h"
 
-char	*check_work(char *av, int *width, int *height)
+int	check_arg(char *arg)
 {
-	char	*map;
+    int len;
+    int i;
+    char *str;
 
-	if (ft_strncmp(valid_format(av), "not valid file format", 23) == 0)
-		ft_error(2);
-	map = ft_read_map(av, width, height);
-	if (!map)
-		ft_error(3);
-	return (map);
+    i = 0;
+    str = ".ber";
+    len = ft_strlen(arg) - 4;
+    while (arg[len] != '\0') {
+        if(arg[len] != str[i++])
+            return (ft_pterr(1), 1);
+        len++;
+    }
+    return (0);
 }
 
 int	main(int ac, char **av)
 {
-	t_game	game;
-	char	*map_str;
-	int		width;
-	int		height;
+    t_var data;
 
-	if (ac != 2)
-		ft_error(1);
-	ft_bzero(&game, sizeof(t_game));
-	map_str = check_work(av[1], &width, &height);
-	game.map.grad = ft_valid_map(map_str, &width, &height);
-	if (!game.map.grad)
-	{
-		free(map_str);
-		ft_error(3);
-	}
-	game.map.width = width;
-	game.map.height = height;
-	ft_init_game(&game, av[1]);
-	mlx_hook(game.win.win, 2, 1L << 0, ft_key_hook, &game);
-	mlx_hook(game.win.win, 17, 0, ft_close_game, &game);
-	mlx_loop_hook(game.win.mlx, ft_render_frame, &game);
-	mlx_loop(game.win.mlx);
-	return (0);
+    if (ac < 2)
+		return (ft_pterr(0), 1);
+    data.map.width = 0;
+    data.map.height = 0;
+	check_arg(av[1]);
+    data.str = ft_read_file(av[1], &data.map.width, &data.map.height);
+    if(!data.str)
+        return (ft_pterr(2), 0);
+    data.map.grad = ft_valid_map(data.str, data.map.width, data.map.height);
+    if(!data.map.grad)
+        return (free(data.str) ,0);
+    ft_render((data.map.width) * TEXTURE_SIZE, (data.map.height) * TEXTURE_SIZE);
+    ft_free_grad(data.map.grad, data.map.height);
 }

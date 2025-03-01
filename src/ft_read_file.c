@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_read_map.c                                      :+:      :+:    :+:   */
+/*   ft_read_file.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/08 16:00:06 by acennadi          #+#    #+#             */
-/*   Updated: 2025/02/15 15:28:21 by acennadi         ###   ########.fr       */
+/*   Created: 2025/02/25 19:43:53 by acennadi          #+#    #+#             */
+/*   Updated: 2025/03/01 18:07:03 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,38 +71,37 @@ static char	*read_loop(int fd, char *saved, int *width, int *height)
 
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer)
-		return (NULL);
+		return (ft_pterr(2), NULL);
 	count = 1;
 	while (count > 0)
 	{
 		count = read(fd, buffer, BUFFER_SIZE);
-		if (count == -1 || count > BUFFER_SIZE)
-			return (handle_read_error(buffer, saved, fd));
+		if (count == -1)
+			return (ft_pterr(2), handle_read_error(buffer, saved, fd));
 		buffer[count] = '\0';
 		saved = ft_stjoin(saved, buffer);
 		if (!saved)
-			return (handle_read_error(buffer, NULL, fd));
+			return (ft_pterr(2), handle_read_error(buffer, saved, fd));
 	}
 	update_dimensions(saved, width, height);
 	free(buffer);
 	return (saved);
 }
 
-char	*ft_read_map(char *str, int *width, int *height)
+char	*ft_read_file(char *str, int *width, int *height)
 {
-	int		fd;
-	char	*saved;
+	t_var data;
 
-	fd = open(str, O_RDONLY);
-	if (fd == -1)
+	data.fd = open(str, O_RDONLY);
+	if (data.fd == -1)
 		return (NULL);
-	saved = ft_strdup("");
-	if (!saved)
+	data.str = ft_strdup("");
+	if (!data.str)
 	{
-		close(fd);
+		close(data.fd);
 		return (NULL);
 	}
-	saved = read_loop(fd, saved, width, height);
-	close(fd);
-	return (saved);
+	data.str = read_loop(data.fd, data.str, width, height);
+	close(data.fd);
+	return (data.str);
 }

@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 09:43:27 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/01 17:21:03 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/02 12:03:19 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ typedef struct s_map
 	int		height;
 	int		width;
 	char	**grad;
-	int		*start_x;
-	int		*start_y;
-	int		*end_x;
-	int		*end_y;
+	int		start_x;
+	int		start_y;
+	int		end_x;
+	int		end_y;
 	t_win	win;
 }			t_map;
 

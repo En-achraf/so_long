@@ -6,29 +6,39 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:07:11 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/03 16:43:00 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/04 15:45:15 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-int ft_explore(char **grad, char **visited, int y, int x, int width, int height) {
-    if (x < 0 || x >= width || y < 0 || y >= height)
+int ft_explore(char **grad, char **visited, int *y, int *x, int width, int height) {
+    int x_new;
+    int y_new;
+    int y_new1;
+    int x_new1;
+    
+    if (*x < 0 || *x >= width || *y < 0 || *y >= height)
         return 0;
-    printf("Exploring (%d, %d)\n", y, x);
-    if (!visited || !visited[y] || !grad || !grad[y])
+    printf("Exploring (%d, %d)\n", *y, *x);
+    if (!visited || !visited[*y] || !grad || !grad[*y])
         return 0;
-    if (visited[y][x] == 'Y' || grad[y][x] == '1')
+    if (visited[*y][*x] == 'y' || grad[*y][*x] == '1')
         return 0;
-    if (grad[y][x] == 'E')
+    if (grad[*y][*x] == 'E')
         return 1;
         
-    visited[y][x] = 'Y';
+    visited[*y][*x] = 'y';
 
-    if (ft_explore(grad, visited, y, x + 1, width, height) ||
-        ft_explore(grad, visited, y, x - 1, width, height) ||
-        ft_explore(grad, visited, y + 1, x, width, height) ||
-        ft_explore(grad, visited, y - 1, x, width, height))
+    x_new = *x + 1;
+    y_new = *y + 1;
+    x_new1 = *x - 1;
+    y_new1 = *y - 1;
+
+    if (ft_explore(grad, visited, y, &x_new, width, height) ||
+        ft_explore(grad, visited, y, &x_new1, width, height) ||
+        ft_explore(grad, visited, &y_new, x, width, height) ||
+        ft_explore(grad, visited, &y_new1, x, width, height))
         return 1;
 
     return 0;
@@ -89,20 +99,20 @@ t_var find_position(char **grad, int row, int col, char target)
 int findItems(char **grad, int width, int height)
 {
     t_var (position);
-    int (result), (x), (y);
+    int (result);
     position.count = ft_check_map(grad, width, height);
     if(position.count == 1)
         return (1);
     position = find_position(grad, height, width, 'P');
     if(position.x == -1 || position.y == -1)
         return (1);
-    x = position.x;
-    y = position.y;
-    printf("the loction of player is %d/%d\n", y, x);
+    position.map.start_x = position.x;
+    position.map.start_y = position.y;
+    printf("the loction of player is %d/%d\n", position.map.start_y, position.map.start_x);
     position.map.visited = fill(position.map.visited, width, height);
     if(!position.map.visited)
         return(1);
-    result = ft_explore(grad, position.map.visited, y, x, width, height);
+    result = ft_explore(grad, position.map.visited, &position.map.start_y, &position.map.start_x, width, height);
     ft_putstr_fd("the explore function return : ", 1);
     ft_putnbr_fd(result, 1);
     ft_putchar_fd('\n', 1);

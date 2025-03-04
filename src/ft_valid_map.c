@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 19:56:38 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/03 16:35:37 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/04 15:49:47 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	**ft_valid_map(char *str, int width, int height)
 	if(!data.map.grad)
 		return (NULL);
 	data.count = findItems(data.map.grad, width, height);
-	if(data.count == 1)
-		return(write(1 ,"i find error here out \n", 24), ft_free_grad(data.map.grad, height), NULL);
+	if(!data.count)
+		return(ft_pterr(4), ft_free_grad(data.map.grad, height), NULL);
 	return (data.map.grad);
 }

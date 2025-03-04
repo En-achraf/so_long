@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 19:43:45 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/04 19:49:10 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/04 20:04:55 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void *ft_load_textures(void *mlx, int num) {
 
     if (num == 0)
         data.map.image = mlx_xpm_file_to_image(mlx, "textures/wall.xpm", &data.map.width, &data.map.height);
+    else if(num == 1)
+        data.map.image = mlx_xpm_file_to_image(mlx, "textures/floar.xpm", &data.map.width, &data.map.height);
     return data.map.image;
 }
 
@@ -28,8 +30,10 @@ void ft_render_map(char **map, void *mlx, void *win, int arr[])
 	
 	data.y = 0;
     void *wall_texture;
+    void *floar_texture;
 
     wall_texture = ft_load_textures(mlx, 0);
+    floar_texture = ft_load_textures(mlx, 1);
     if (!wall_texture)
 		return;
     while(data.y < arr[1])
@@ -39,6 +43,8 @@ void ft_render_map(char **map, void *mlx, void *win, int arr[])
         {
             if(map[data.y][data.x] == '1')
                 mlx_put_image_to_window(mlx, win, wall_texture, data.x * TEXTURE_SIZE, data.y * TEXTURE_SIZE);
+            else if(map[data.y][data.x] == '0')
+                mlx_put_image_to_window(mlx, win, floar_texture, data.x * TEXTURE_SIZE, data.y * TEXTURE_SIZE);
             data.x++;
         }
         data.y++;

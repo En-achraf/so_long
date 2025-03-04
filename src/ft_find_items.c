@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:07:11 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/04 15:53:22 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/04 20:39:44 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,17 +100,17 @@ int	findItems(char **grad, int width, int height)
 	int(result);
 	position.count = ft_check_map(grad, width, height);
 	if (position.count == 1)
-		return (1);
+		return (0);
 	position = find_position(grad, height, width, 'P');
 	if (position.x == -1 || position.y == -1)
-		return (1);
+		return (0);
 	position.map.start_x = position.x;
 	position.map.start_y = position.y;
 	printf("the loction of player is %d/%d\n", position.map.start_y,
 		position.map.start_x);
 	position.map.visited = fill(position.map.visited, width, height);
 	if (!position.map.visited)
-		return (1);
+		return (0);
 	result = ft_explore(grad, position.map.visited, &position.map.start_y,
 			&position.map.start_x, width, height);
 	ft_putstr_fd("the explore function return : ", 1);

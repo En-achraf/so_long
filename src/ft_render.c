@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 19:43:45 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/04 20:04:55 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/04 20:15:19 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void ft_render_map(char **map, void *mlx, void *win, int arr[])
         }
         data.y++;
     }
+    mlx_destroy_image(mlx, wall_texture);
+    mlx_destroy_image(mlx, floar_texture);
 }
 
 int ft_close_window(void *param)

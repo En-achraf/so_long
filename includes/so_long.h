@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 09:43:27 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/04 16:45:57 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/04 17:25:41 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 // macros
 # define BUFFER_SIZE 1024
-# define TEXTURE_SIZE 64
+# define TEXTURE_SIZE 32
 
 // structs
 typedef struct s_win

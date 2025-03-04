@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 19:43:45 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/04 17:42:36 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/04 19:49:10 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,27 @@ void *ft_load_textures(void *mlx, int num) {
     return data.map.image;
 }
 
-void ft_render_map(void *mlx, void *win)
+void ft_render_map(char **map, void *mlx, void *win, int arr[])
 {
-    int x, y;
+    t_var data;
 	
-	x = 0;
-	y = 0;
+	data.y = 0;
     void *wall_texture;
 
     wall_texture = ft_load_textures(mlx, 0);
     if (!wall_texture)
 		return;
-    mlx_put_image_to_window(mlx, win, wall_texture, x * TEXTURE_SIZE, y * TEXTURE_SIZE);
+    while(data.y < arr[1])
+    {
+	    data.x = 0;
+        while(data.x < arr[0])
+        {
+            if(map[data.y][data.x] == '1')
+                mlx_put_image_to_window(mlx, win, wall_texture, data.x * TEXTURE_SIZE, data.y * TEXTURE_SIZE);
+            data.x++;
+        }
+        data.y++;
+    }
 }
 
 int ft_close_window(void *param)
@@ -44,21 +53,20 @@ int ft_close_window(void *param)
     return (0);
 }
 
-void ft_render(int width, int height)
+void ft_render(char ** map, int width, int height)
 {
     t_map data;
+    int size[1];
 
+    size[0] = width;
+    size[1] = height;
     data.win.mlx = mlx_init();
-    if (!data.win.mlx) {
-        printf("MLX initialization failed\n");
-        return;
-    }
+    if (!data.win.mlx)
+        return (ft_putstr_fd("Error :  MLX initialization failed\n", 2));
     data.win.win = mlx_new_window(data.win.mlx, width * TEXTURE_SIZE, height * TEXTURE_SIZE, "so_long");
-    if (!data.win.win) {
-        printf("Window creation failed\n");
-        return;
-    }
-    ft_render_map(data.win.mlx, data.win.win);
+    if (!data.win.win)
+        return (ft_putstr_fd("Window creation failed\n", 2));
+    ft_render_map(map, data.win.mlx, data.win.win, size);
     mlx_hook(data.win.win, 17, 0, ft_close_window, &data);
     mlx_loop(data.win.mlx);
 }

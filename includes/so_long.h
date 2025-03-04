@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 09:43:27 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/04 19:31:44 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/04 19:51:37 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_var
 
 // functions
 // map render
-void		ft_render(int width, int height);
+void		ft_render(char **map, int width, int height);
 char		**ft_valid_map(char *str, int width, int height);
 int 	ft_check_map(char** grad, int width, int height);
 int		findItems(char **grad, int width, int height);

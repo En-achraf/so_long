@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 09:43:29 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/04 16:01:52 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/04 19:41:09 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,6 @@ int	main(int ac, char **av)
     data.map.grad = ft_valid_map(data.str, data.map.width, data.map.height);
     if(data.map.grad == NULL)
         return (free(data.str) ,0);
-    ft_render(data.map.width, data.map.height);
+    ft_render(data.map.grad, data.map.width, data.map.height);
     ft_free_grad(data.map.grad, data.map.height);
 }

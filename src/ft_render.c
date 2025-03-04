@@ -18,8 +18,9 @@ void	ft_render(int width, int height)
 
 	data.win.mlx = mlx_init();
 	data.win.win = mlx_new_window(data.win.mlx, width, height, "test");
-    if(!data.win.win) {
-        mlx_destroy_window(data.win.mlx, data.win.win);
-    }
+	if (!data.win.win)
+	{
+		mlx_destroy_window(data.win.mlx, data.win.win);
+	}
 	mlx_loop(data.win.mlx);
 }

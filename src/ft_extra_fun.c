@@ -12,19 +12,19 @@
 
 #include "../includes/so_long.h"
 
-void ft_free_grad(char **str, int height)
+void	ft_free_grad(char **str, int height)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    if (!str)
-        return;
-    while (i < height && str[i])
-    {
-        free(str[i]);
-        i++;
-    }
-    free(str);
+	i = 0;
+	if (!str)
+		return ;
+	while (i < height && str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
 }
 
 int	ft_validate_map_char(char c, int *player, int *collectible, int *exit)
@@ -42,48 +42,52 @@ int	ft_validate_map_char(char c, int *player, int *collectible, int *exit)
 
 int	ft_check_border(char **grad, int width, int height)
 {
-	t_var data;
+	t_var	data;
 
 	data.y = 0;
 	while (data.y < height)
 	{
 		data.x = 0;
-		while(data.x < width) {
-			if(data.y == 0 || data.y == (height - 1) || data.x == 0 || data.x == (width - 1)) {
-				if(grad[data.y][data.x] != '1')
-					return(ft_putstr_fd("Error: Map is not surrounded by walls\n", 2), 1);
-			}		
+		while (data.x < width)
+		{
+			if (data.y == 0 || data.y == (height - 1) || data.x == 0
+				|| data.x == (width - 1))
+			{
+				if (grad[data.y][data.x] != '1')
+					return (ft_putstr_fd("Error: Map is not surrounded by walls\n",
+							2), 1);
+			}
 			data.x++;
 		}
 		data.y++;
 	}
-	
-	return 0;
+	return (0);
 }
 
-int ft_check_map(char** grad, int width, int height)
+int	ft_check_map(char **grad, int width, int height)
 {
-	t_var data;
+	t_var	data;
 
 	data.y = 0;
 	data.player_count = 0;
 	data.exit_count = 0;
 	data.enmy_count = 0;
 	data.count = ft_check_border(grad, width, height);
-	if(data.count == 1)
+	if (data.count == 1)
 		return (1);
 	while (data.y < height)
 	{
 		data.x = 0;
 		while (data.x < width)
 		{
-			ft_validate_map_char(grad[data.y][data.x], &data.player_count, 
+			ft_validate_map_char(grad[data.y][data.x], &data.player_count,
 				&data.enmy_count, &data.exit_count);
 			data.x++;
 		}
 		data.y++;
 	}
-	if(data.enmy_count < 1 || (data.player_count != 1) || (data.exit_count != 1))
+	if (data.enmy_count < 1 || (data.player_count != 1)
+		|| (data.exit_count != 1))
 		return (ft_pterr(3), 1);
 	return (0);
 }

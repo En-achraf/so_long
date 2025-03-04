@@ -35,12 +35,12 @@ char	**To_2D(char *str, int width, int height)
 char	**ft_valid_map(char *str, int width, int height)
 {
 	t_var	data;
-	
+
 	data.map.grad = To_2D(str, width, height);
-	if(!data.map.grad)
+	if (!data.map.grad)
 		return (NULL);
 	data.count = findItems(data.map.grad, width, height);
-	if(!data.count)
-		return(ft_pterr(4), ft_free_grad(data.map.grad, height), NULL);
+	if (!data.count)
+		return (ft_pterr(4), ft_free_grad(data.map.grad, height), NULL);
 	return (data.map.grad);
 }

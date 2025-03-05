@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 19:43:45 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/04 20:15:19 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/05 15:16:02 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void ft_render(char ** map, int width, int height)
         return (ft_putstr_fd("Error :  MLX initialization failed\n", 2));
     data.win.win = mlx_new_window(data.win.mlx, width * TEXTURE_SIZE, height * TEXTURE_SIZE, "so_long");
     if (!data.win.win)
-        return (ft_putstr_fd("Window creation failed\n", 2));
+        return (ft_putstr_fd("Error : Window creation failed\n", 2));
     ft_render_map(map, data.win.mlx, data.win.win, size);
     mlx_hook(data.win.win, 17, 0, ft_close_window, &data);
     mlx_loop(data.win.mlx);

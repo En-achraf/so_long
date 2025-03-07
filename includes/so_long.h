@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 09:43:27 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/04 19:51:37 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/07 14:58:54 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@
 #include <stdio.h>
 
 // macros
+#define KEY_W 119
+#define KEY_A 97
+#define KEY_S 115
+#define KEY_D 100
+#define ESC 65307
 # define BUFFER_SIZE 1024
 # define TEXTURE_SIZE 32
 
@@ -58,15 +63,24 @@ typedef struct s_var
 	int exit_count;
 	int enmy_count;
 	t_map	map;
+	// t_game *game;
 }			t_var;
+
+// typedef struct s_game
+// {
+	
+// }			t_game;
 
 // functions
 // map render
+void ft_render_map(char **map, void *mlx, void *win, int arr[]);
 void		ft_render(char **map, int width, int height);
-char		**ft_valid_map(char *str, int width, int height);
-int 	ft_check_map(char** grad, int width, int height);
+// void    ft_interactive(char **map, int arr[]);
+
+// map validation
 int		findItems(char **grad, int width, int height);
-t_var	find_position(char **grad, int row, int col, char target);
+int 	ft_check_map(char** grad, int width, int height);
+char		**ft_valid_map(char *str, int width, int height);
 
 // file reading
 char		*ft_read_file(char *str, int *width, int *height);
@@ -74,5 +88,6 @@ char		*ft_read_file(char *str, int *width, int *height);
 // utils functions
 void		ft_pterr(int error_code);
 void		ft_free_grad(char **str, int height);
+t_var	find_position(char **grad, int row, int col, char target);
 
 #endif

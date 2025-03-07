@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 19:43:45 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/05 15:16:02 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/07 15:18:46 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,24 @@ void *ft_load_textures(void *mlx, int num) {
 
     if (num == 0)
         data.map.image = mlx_xpm_file_to_image(mlx, "textures/wall.xpm", &data.map.width, &data.map.height);
-    else if(num == 1)
+    else if (num == 1)
         data.map.image = mlx_xpm_file_to_image(mlx, "textures/floar.xpm", &data.map.width, &data.map.height);
+    else if (num == 2)
+        data.map.image = mlx_xpm_file_to_image(mlx, "textures/walk_Down.xpm", &data.map.width , &data.map.height);
     return data.map.image;
 }
 
 void ft_render_map(char **map, void *mlx, void *win, int arr[])
 {
     t_var data;
-	
-	data.y = 0;
     void *wall_texture;
     void *floar_texture;
-
+    void *player_texture;
+	
+	data.y = 0;
     wall_texture = ft_load_textures(mlx, 0);
     floar_texture = ft_load_textures(mlx, 1);
+    player_texture = ft_load_textures(mlx, 2);
     if (!wall_texture)
 		return;
     while(data.y < arr[1])
@@ -45,6 +48,8 @@ void ft_render_map(char **map, void *mlx, void *win, int arr[])
                 mlx_put_image_to_window(mlx, win, wall_texture, data.x * TEXTURE_SIZE, data.y * TEXTURE_SIZE);
             else if(map[data.y][data.x] == '0')
                 mlx_put_image_to_window(mlx, win, floar_texture, data.x * TEXTURE_SIZE, data.y * TEXTURE_SIZE);
+            else if(map[data.y][data.x] == 'P')
+                mlx_put_image_to_window(mlx, win, player_texture, data.x * TEXTURE_SIZE, data.y * TEXTURE_SIZE);
             data.x++;
         }
         data.y++;
@@ -61,7 +66,7 @@ int ft_close_window(void *param)
     return (0);
 }
 
-void ft_render(char ** map, int width, int height)
+void ft_render(char **map, int width, int height)
 {
     t_map data;
     int size[1];
@@ -75,6 +80,7 @@ void ft_render(char ** map, int width, int height)
     if (!data.win.win)
         return (ft_putstr_fd("Error : Window creation failed\n", 2));
     ft_render_map(map, data.win.mlx, data.win.win, size);
+    
     mlx_hook(data.win.win, 17, 0, ft_close_window, &data);
     mlx_loop(data.win.mlx);
 }

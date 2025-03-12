@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 09:43:27 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/07 14:58:54 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/12 05:50:59 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,11 @@ typedef struct s_var
 	t_map	map;
 	// t_game *game;
 }			t_var;
-
-// typedef struct s_game
-// {
-	
-// }			t_game;
-
 // functions
 // map render
 void ft_render_map(char **map, void *mlx, void *win, int arr[]);
 void		ft_render(char **map, int width, int height);
-// void    ft_interactive(char **map, int arr[]);
+void    ft_interactive(char **map, int arr[]);
 
 // map validation
 int		findItems(char **grad, int width, int height);

@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 19:43:45 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/12 05:48:58 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/14 17:22:54 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void ft_render(char **map, int width, int height)
     if (!data.win.win)
         return (ft_putstr_fd("Error : Window creation failed\n", 2));
     ft_render_map(map, data.win.mlx, data.win.win, size);
-    ft_interactive(map, size);
+    ft_interactive(map, size, data.win.win, &data);
     mlx_hook(data.win.win, 17, 0, ft_close_window, &data);
     mlx_loop(data.win.mlx);
 }

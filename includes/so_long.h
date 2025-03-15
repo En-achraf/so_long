@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 09:43:27 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/15 06:28:55 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/15 20:34:05 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,13 @@
 #define KEY_A 97
 #define KEY_S 115
 #define KEY_D 100
+#define KEY_UP 65362
+#define KEY_LEFT 65361
+#define KEY_DOWN 65364
+#define KEY_RIGHT 65363
 #define ESC 65307
 # define BUFFER_SIZE 1024
-# define TEXTURE_SIZE 32
+# define TEXTURE_SIZE 34
 
 // structs
 typedef struct s_win

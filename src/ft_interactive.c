@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 15:19:04 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/15 20:20:07 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/15 20:33:16 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,25 @@ int keyhook(int key_code, t_map *data)
 
     if (key_code == ESC) 
         ft_close(data);
-    else if (key_code == KEY_W && data->grad[y - 1][x] != '1') 
+    else if ((key_code == KEY_W || key_code == KEY_UP) && data->grad[y - 1][x] != '1') 
     {
         data->grad[y][x] = '0';
         data->grad[y - 1][x] = 'P';
         data->player.y--;
     }
-    else if (key_code == KEY_S && data->grad[y + 1][x] != '1')
+    else if ((key_code == KEY_S || key_code == KEY_DOWN) && data->grad[y + 1][x] != '1')
     {
         data->grad[y][x] = '0';
         data->grad[y + 1][x] = 'P';
         data->player.y++;
     }
-    else if (key_code == KEY_A && data->grad[y][x - 1] != '1')
+    else if ((key_code == KEY_A || key_code == KEY_LEFT) && data->grad[y][x - 1] != '1')
     {
         data->grad[y][x] = '0';
         data->grad[y][x - 1] = 'P';
         data->player.x--;
     }
-    else if (key_code == KEY_D && data->grad[y][x + 1] != '1')
+    else if ((key_code == KEY_D || key_code == KEY_RIGHT) && data->grad[y][x + 1] != '1')
     {
         data->grad[y][x] = '0';
         data->grad[y][x + 1] = 'P';

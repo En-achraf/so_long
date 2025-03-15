@@ -1,7 +1,8 @@
 #include "../includes/so_long.h"
 
 // Function to load textures
-void *ft_load_textures(void *mlx, int num) {
+void *ft_load_textures(void *mlx, int num)
+{
     t_var data;
     data.map.width = TEXTURE_SIZE;
     data.map.height = TEXTURE_SIZE;
@@ -38,16 +39,12 @@ void ft_render_map(char **map, void *mlx, void *win, int arr[], t_player player)
         }
         y++;
     }
-    // Render the player at the updated position
     mlx_put_image_to_window(mlx, win, player_texture, player.x * TEXTURE_SIZE, player.y * TEXTURE_SIZE);
-
-    // Destroy textures to avoid memory leaks
     mlx_destroy_image(mlx, wall_texture);
     mlx_destroy_image(mlx, floor_texture);
     mlx_destroy_image(mlx, player_texture);
 }
 
-// Function to close the window and exit the program
 int ft_close_window(void *param)
 {
     t_map *data = (t_map *)param;
@@ -71,7 +68,6 @@ void ft_render(char **map, int width, int height)
     if (!data.win.win)
         return (ft_putstr_fd("Error : Window creation failed\n", 2));
 
-    // Initialize player position
     t_var position = find_position(map, height, width, 'P');
     if (position.x == -1 || position.y == -1)
     {
@@ -80,16 +76,8 @@ void ft_render(char **map, int width, int height)
     }
     data.player.x = position.x;
     data.player.y = position.y;
-
-    // Render the initial map
     ft_render_map(map, data.win.mlx, data.win.win, size, data.player);
-
-    // Set up interactive elements
     ft_interactive(map, size, data.win.win, &data);
-
-    // Set up the close window hook
     mlx_hook(data.win.win, 17, 0, ft_close_window, &data);
-
-    // Start the MLX loop
     mlx_loop(data.win.mlx);
 }

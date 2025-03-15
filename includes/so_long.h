@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 09:43:27 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/14 17:23:12 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/15 06:28:55 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,16 @@ typedef struct s_win
 typedef	struct s_player
 {
 	int x;
-	int y
+	int y;
 }	t_player;
 
 
 typedef struct s_map
 {
+	
+	void 	*wall_texture;
+	void	*floor_texture;
+	void	*player_texture;
 	int		height;
 	int		width;
 	void	*image;
@@ -74,7 +78,7 @@ typedef struct s_var
 }			t_var;
 // functions
 // map render
-void ft_render_map(char **map, void *mlx, void *win, int arr[]);
+void ft_render_map(char **map, void *mlx, void *win, int arr[], t_player player);
 void		ft_render(char **map, int width, int height);
 void	ft_interactive(char **map, int arr[], void *window, t_map *data);
 // map validation

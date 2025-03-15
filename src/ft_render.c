@@ -1,17 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_render.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/25 19:43:45 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/14 17:22:54 by acennadi         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../includes/so_long.h"
 
+// Function to load textures
 void *ft_load_textures(void *mlx, int num) {
     t_var data;
     data.map.width = TEXTURE_SIZE;
@@ -26,38 +15,39 @@ void *ft_load_textures(void *mlx, int num) {
     return data.map.image;
 }
 
-void ft_render_map(char **map, void *mlx, void *win, int arr[])
+void ft_render_map(char **map, void *mlx, void *win, int arr[], t_player player)
 {
-    t_var data;
-    void *wall_texture;
-    void *floar_texture;
-    void *player_texture;
-	
-	data.y = 0;
-    wall_texture = ft_load_textures(mlx, 0);
-    floar_texture = ft_load_textures(mlx, 1);
-    player_texture = ft_load_textures(mlx, 2);
-    if (!wall_texture)
-		return;
-    while(data.y < arr[1])
+    void *wall_texture = ft_load_textures(mlx, 0);
+    void *floor_texture = ft_load_textures(mlx, 1);
+    void *player_texture = ft_load_textures(mlx, 2);
+
+    int y = 0;
+    while (y < arr[1])
     {
-	    data.x = 0;
-        while(data.x < arr[0])
+        int x = 0;
+        while (x < arr[0])
         {
-            if(map[data.y][data.x] == '1')
-                mlx_put_image_to_window(mlx, win, wall_texture, data.x * TEXTURE_SIZE, data.y * TEXTURE_SIZE);
-            else if(map[data.y][data.x] == '0')
-                mlx_put_image_to_window(mlx, win, floar_texture, data.x * TEXTURE_SIZE, data.y * TEXTURE_SIZE);
-            else if(map[data.y][data.x] == 'P')
-                mlx_put_image_to_window(mlx, win, player_texture, data.x * TEXTURE_SIZE, data.y * TEXTURE_SIZE);
-            data.x++;
+            if (map[y][x] == '0')
+                mlx_put_image_to_window(mlx, win, floor_texture, x * TEXTURE_SIZE, y * TEXTURE_SIZE);
+            else if (map[y][x] == '1')
+                mlx_put_image_to_window(mlx, win, wall_texture, x * TEXTURE_SIZE, y * TEXTURE_SIZE);
+            else if(map[y][x] == 'P')
+                mlx_put_image_to_window(mlx, win, player_texture, x * TEXTURE_SIZE, y * TEXTURE_SIZE);
+
+            x++;
         }
-        data.y++;
+        y++;
     }
+    // Render the player at the updated position
+    mlx_put_image_to_window(mlx, win, player_texture, player.x * TEXTURE_SIZE, player.y * TEXTURE_SIZE);
+
+    // Destroy textures to avoid memory leaks
     mlx_destroy_image(mlx, wall_texture);
-    mlx_destroy_image(mlx, floar_texture);
+    mlx_destroy_image(mlx, floor_texture);
+    mlx_destroy_image(mlx, player_texture);
 }
 
+// Function to close the window and exit the program
 int ft_close_window(void *param)
 {
     t_map *data = (t_map *)param;
@@ -66,10 +56,11 @@ int ft_close_window(void *param)
     return (0);
 }
 
+// Function to render the game
 void ft_render(char **map, int width, int height)
 {
     t_map data;
-    int size[1];
+    int size[2];
 
     size[0] = width;
     size[1] = height;
@@ -79,8 +70,26 @@ void ft_render(char **map, int width, int height)
     data.win.win = mlx_new_window(data.win.mlx, width * TEXTURE_SIZE, height * TEXTURE_SIZE, "so_long");
     if (!data.win.win)
         return (ft_putstr_fd("Error : Window creation failed\n", 2));
-    ft_render_map(map, data.win.mlx, data.win.win, size);
+
+    // Initialize player position
+    t_var position = find_position(map, height, width, 'P');
+    if (position.x == -1 || position.y == -1)
+    {
+        ft_putstr_fd("Error: Player starting position not found\n", 2);
+        exit(1);
+    }
+    data.player.x = position.x;
+    data.player.y = position.y;
+
+    // Render the initial map
+    ft_render_map(map, data.win.mlx, data.win.win, size, data.player);
+
+    // Set up interactive elements
     ft_interactive(map, size, data.win.win, &data);
+
+    // Set up the close window hook
     mlx_hook(data.win.win, 17, 0, ft_close_window, &data);
+
+    // Start the MLX loop
     mlx_loop(data.win.mlx);
 }

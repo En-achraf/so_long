@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 15:19:04 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/15 20:33:16 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/17 17:55:14 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,10 @@ void ft_interactive(char **map, int arr[], void *window, t_map *data)
     data->height = arr[1];
     position = find_position(map, arr[1], arr[0], 'P');
     if (position.x == -1 || position.y == -1)
-    {
-        ft_putstr_fd("Error: Player starting position not found\n", 2);
         exit(1);
-    }
-
     data->player.x = position.x;
     data->player.y = position.y;
+    position = find_position(map, data->height, data->width, 'E');
     data->grad = map;
-
     mlx_key_hook(window, keyhook, data);
 }

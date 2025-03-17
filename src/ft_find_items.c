@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:07:11 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/04 20:39:44 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/17 17:37:03 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	ft_explore(char **grad, char **visited, int *y, int *x, int width,
 
 	if (*x < 0 || *x >= width || *y < 0 || *y >= height)
 		return (0);
-	printf("Exploring (%d, %d)\n", *y, *x);
 	if (!visited || !visited[*y] || !grad || !grad[*y])
 		return (0);
 	if (visited[*y][*x] == 'y' || grad[*y][*x] == '1')
@@ -106,16 +105,11 @@ int	findItems(char **grad, int width, int height)
 		return (0);
 	position.map.start_x = position.x;
 	position.map.start_y = position.y;
-	printf("the loction of player is %d/%d\n", position.map.start_y,
-		position.map.start_x);
 	position.map.visited = fill(position.map.visited, width, height);
 	if (!position.map.visited)
 		return (0);
 	result = ft_explore(grad, position.map.visited, &position.map.start_y,
 			&position.map.start_x, width, height);
-	ft_putstr_fd("the explore function return : ", 1);
-	ft_putnbr_fd(result, 1);
-	ft_putchar_fd('\n', 1);
 	ft_free_grad(position.map.visited, height);
 	return (result);
 }

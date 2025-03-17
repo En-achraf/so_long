@@ -67,7 +67,6 @@ void ft_render(char **map, int width, int height)
     data.win.win = mlx_new_window(data.win.mlx, width * TEXTURE_SIZE, height * TEXTURE_SIZE, "so_long");
     if (!data.win.win)
         return (ft_putstr_fd("Error : Window creation failed\n", 2));
-
     t_var position = find_position(map, height, width, 'P');
     if (position.x == -1 || position.y == -1)
     {

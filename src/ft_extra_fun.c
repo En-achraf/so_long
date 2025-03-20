@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 17:00:12 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/20 17:26:48 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/20 17:34:25 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,14 @@ int ft_close_window(t_map *data)
         if (data->player_texture)
             mlx_destroy_image(data->win.mlx, data->player_texture);
 
-        // Free the map grid
         if (data->grad)
             ft_free_grad(data->grad, data->height);
 
-        // Destroy the MiniLibX window
+        if (data->win.mlx)
+            mlx_destroy_display(data->win.mlx);
         if (data->win.win)
             mlx_destroy_window(data->win.mlx, data->win.win);
 
-        // Destroy the MiniLibX display and free the memory allocated by mlx_init()
-        if (data->win.mlx)
-            mlx_destroy_display(data->win.mlx);
-
-        // Free the t_map structure
         free(data);
     }
 

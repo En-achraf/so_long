@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 09:43:29 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/20 17:55:25 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/20 18:11:02 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int check_arg(char *arg)
     int len = ft_strlen(arg);
     if (len < 4 || ft_strncmp(arg + len - 4, ".ber", 4) != 0)
         return (ft_pterr(1), 1);
-    return (0); // Success
+    return (0);
 }
 
 int initialize_data(t_var *data, char *filename)
@@ -36,7 +36,7 @@ int initialize_data(t_var *data, char *filename)
     if (!data->map.grad)
         return (3);
 
-    return (0); // Success
+    return (0);
 }
 
 int main(int ac, char **av)
@@ -45,14 +45,14 @@ int main(int ac, char **av)
     int status;
 
     if (ac != 2)
-        return (ft_pterr(0), 1); // Error: Invalid number of arguments
+        return (ft_pterr(0), 1);
 
     status = initialize_data(&data, av[1]);
     if (status)
     {
-        if (status == 3) // If ft_valid_map failed, free data->str
+        if (status == 3)
             free(data.str);
-        return (ft_pterr(status), 1); // Exit with the appropriate error code
+        return (ft_pterr(status), 1);
     }
 
     ft_render(data.map.grad, data.map.width, data.map.height);
@@ -60,5 +60,5 @@ int main(int ac, char **av)
     ft_free_grad(data.map.grad, data.map.height);
     free(data.str);
 
-    return (0); // Success
+    return (0);
 }

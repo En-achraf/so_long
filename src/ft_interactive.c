@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 15:19:04 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/20 13:17:41 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:14:11 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ int ft_close(t_map *data)
     {
         if (data->grad)
             ft_free_grad(data->grad, data->height);
-        if (data->win.win)
+        if (data->win.win) {
             mlx_destroy_window(data->win.mlx, data->win.win);
+            mlx_destroy_display(data->win.mlx);
+        }
         if (data->win.mlx) 
             free(data->win.mlx);
         exit(0);

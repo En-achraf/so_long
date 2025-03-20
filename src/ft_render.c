@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 09:19:00 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/20 13:49:50 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:15:28 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,9 @@ int ft_close_window(void *param)
 {
     t_map *data = (t_map *)param;
     mlx_destroy_window(data->win.mlx, data->win.win);
+    mlx_destroy_display(data->win.mlx);
+    free(data->win.mlx);
+    ft_free_grad();
     exit(0);
     return (0);
 }
@@ -91,4 +94,5 @@ void ft_render(char **map, int width, int height)
     ft_interactive(map, size, data.win.win, &data);
     mlx_hook(data.win.win, 17, 0, ft_close_window, &data);
     mlx_loop(data.win.mlx);
+    
 }

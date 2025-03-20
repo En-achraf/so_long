@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 09:19:00 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/20 17:26:35 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/20 17:59:21 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,26 @@ void ft_render(char **map, int width, int height)
     data->grad = map;
     data->win.mlx = mlx_init();
     if (!data->win.mlx)
-        return (ft_putstr_fd("Error :  MLX initialization failed\n", 2));
+    {
+        free(data);
+        return (ft_putstr_fd("Error: MLX initialization failed\n", 2));
+    }
     data->win.win = mlx_new_window(data->win.mlx, width * TEXTURE_SIZE, height * TEXTURE_SIZE, "so_long");
     if (!data->win.win)
-        return (ft_putstr_fd("Error : Window creation failed\n", 2));
+    {
+        mlx_destroy_display(data->win.mlx);
+        free(data);
+        return (ft_putstr_fd("Error: Window creation failed\n", 2));
+    }
     ft_load_textures(data);
     t_var position = find_position(map, height, width, 'P');
     if (position.x == -1 || position.y == -1)
+    {
+        mlx_destroy_window(data->win.mlx, data->win.win);
+        mlx_destroy_display(data->win.mlx);
+        free(data);
         exit(1);
+    }
     data->player.x = position.x;
     data->player.y = position.y;
     ft_render_map(data, data->player);

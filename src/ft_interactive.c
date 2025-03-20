@@ -6,11 +6,25 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 15:19:04 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/20 17:29:02 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/20 18:04:18 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
+
+static void move_player(t_map *data, int new_x, int new_y)
+{
+    if (data->grad[new_y][new_x] == 'C')
+        data->collectibles--;
+    if (data->grad[new_y][new_x] == 'E' && data->collectibles == 0)
+        ft_close_window(data);
+    else {
+        data->grad[data->player.y][data->player.x] = '0';
+        data->grad[new_y][new_x] = 'P';
+        data->player.x = new_x;
+        data->player.y = new_y;
+    }
+}
 
 int keyhook(int key_code, t_map *data)
 {
@@ -19,51 +33,18 @@ int keyhook(int key_code, t_map *data)
 
     if (key_code == ESC) 
         ft_close_window(data);
-    else if ((key_code == KEY_W || key_code == KEY_UP) && data->grad[y - 1][x] != '1') 
-    {
-        if (data->grad[y - 1][x] == 'E')
-            ft_close_window(data);
-        else {
-            data->grad[y][x] = '0';
-            data->grad[y - 1][x] = 'P';
-            data->player.y--;
-        }
-    }
-    else if ((key_code == KEY_S || key_code == KEY_DOWN) && data->grad[y + 1][x] != '1')
-    {
-        if (data->grad[y + 1][x] == 'E')
-            ft_close_window(data);
-        else {
-            data->grad[y][x] = '0';
-            data->grad[y + 1][x] = 'P';
-            data->player.y++;
-        }
-    }
-    else if ((key_code == KEY_A || key_code == KEY_LEFT) && data->grad[y][x - 1] != '1')
-    {
-        if (data->grad[y][x - 1] == 'E')
-            ft_close_window(data);
-        else {
-            data->grad[y][x] = '0';
-            data->grad[y][x - 1] = 'P';
-            data->player.x--;
-        }
-    }
-    else if ((key_code == KEY_D || key_code == KEY_RIGHT) && data->grad[y][x + 1] != '1')
-    {
-        if (data->grad[y][x + 1] == 'E')
-            ft_close_window(data);
-        else {    
-            data->grad[y][x] = '0';
-            data->grad[y][x + 1] = 'P';
-            data->player.x++;
-        }
-    }
+    else if ((key_code == KEY_W || key_code == KEY_UP) && y > 0 && data->grad[y - 1][x] != '1')
+        move_player(data, x, y - 1);
+    else if ((key_code == KEY_S || key_code == KEY_DOWN) && y < data->height - 1 && data->grad[y + 1][x] != '1')
+        move_player(data, x, y + 1);
+    else if ((key_code == KEY_A || key_code == KEY_LEFT) && x > 0 && data->grad[y][x - 1] != '1')
+        move_player(data, x - 1, y);
+    else if ((key_code == KEY_D || key_code == KEY_RIGHT) && x < data->width - 1 && data->grad[y][x + 1] != '1')
+        move_player(data, x + 1, y);
     ft_render_map(data, data->player);
     return (0);
 }
 
-// Function to initialize interactive elements
 void ft_interactive(t_map *data)
 {
     t_var position;
@@ -73,6 +54,5 @@ void ft_interactive(t_map *data)
         exit(1);
     data->player.x = position.x;
     data->player.y = position.y;
-    position = find_position(data->grad, data->height, data->width, 'E');
     mlx_key_hook(data->win.win, keyhook, data);
 }

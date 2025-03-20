@@ -6,13 +6,13 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 09:43:29 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/20 09:03:56 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/20 13:20:06 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/so_long.h"
 
-int	check_arg(char *arg)
+int check_arg(char *arg)
 {
     int len;
     int i;
@@ -29,23 +29,29 @@ int	check_arg(char *arg)
     return (0);
 }
 
-int	main(int ac, char **av)
+int main(int ac, char **av)
 {
     t_var data;
 
     if (ac != 2)
-		return (ft_pterr(0), 1);
+        return (ft_pterr(0), 1);
     data.map.width = 0;
     data.map.height = 0;
-	data.count = check_arg(av[1]);
-    if(data.count)
+    data.count = check_arg(av[1]);
+    if (data.count)
         exit(1);
     data.str = ft_read_file(av[1], &data.map.width, &data.map.height);
-    if(!data.str)
+    if (!data.str)
         return (ft_pterr(2), 0);
     data.map.grad = ft_valid_map(data.str, data.map.width, data.map.height);
-    if(data.map.grad == NULL)
-        return (free(data.str) ,0);
+    if (data.map.grad == NULL)
+    {
+        free(data.str);
+        return (0);
+    }
     ft_render(data.map.grad, data.map.width, data.map.height);
+    // Free resources
     ft_free_grad(data.map.grad, data.map.height);
+    free(data.str);
+    return (0);
 }

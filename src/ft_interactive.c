@@ -6,29 +6,11 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 15:19:04 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/20 14:14:11 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/20 17:29:02 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
-
-// Function to close the game window and free resources
-int ft_close(t_map *data)
-{
-    if (data)
-    {
-        if (data->grad)
-            ft_free_grad(data->grad, data->height);
-        if (data->win.win) {
-            mlx_destroy_window(data->win.mlx, data->win.win);
-            mlx_destroy_display(data->win.mlx);
-        }
-        if (data->win.mlx) 
-            free(data->win.mlx);
-        exit(0);
-    }
-    return (0);
-}
 
 int keyhook(int key_code, t_map *data)
 {
@@ -36,11 +18,11 @@ int keyhook(int key_code, t_map *data)
     int y = data->player.y;
 
     if (key_code == ESC) 
-        ft_close(data);
+        ft_close_window(data);
     else if ((key_code == KEY_W || key_code == KEY_UP) && data->grad[y - 1][x] != '1') 
     {
         if (data->grad[y - 1][x] == 'E')
-            ft_close(data);
+            ft_close_window(data);
         else {
             data->grad[y][x] = '0';
             data->grad[y - 1][x] = 'P';
@@ -50,7 +32,7 @@ int keyhook(int key_code, t_map *data)
     else if ((key_code == KEY_S || key_code == KEY_DOWN) && data->grad[y + 1][x] != '1')
     {
         if (data->grad[y + 1][x] == 'E')
-            ft_close(data);
+            ft_close_window(data);
         else {
             data->grad[y][x] = '0';
             data->grad[y + 1][x] = 'P';
@@ -60,7 +42,7 @@ int keyhook(int key_code, t_map *data)
     else if ((key_code == KEY_A || key_code == KEY_LEFT) && data->grad[y][x - 1] != '1')
     {
         if (data->grad[y][x - 1] == 'E')
-            ft_close(data);
+            ft_close_window(data);
         else {
             data->grad[y][x] = '0';
             data->grad[y][x - 1] = 'P';
@@ -70,30 +52,27 @@ int keyhook(int key_code, t_map *data)
     else if ((key_code == KEY_D || key_code == KEY_RIGHT) && data->grad[y][x + 1] != '1')
     {
         if (data->grad[y][x + 1] == 'E')
-            ft_close(data);
+            ft_close_window(data);
         else {    
             data->grad[y][x] = '0';
             data->grad[y][x + 1] = 'P';
             data->player.x++;
         }
     }
-    ft_render_map(data->grad, data->win.mlx, data->win.win, (int[]){data->width, data->height}, data->player);
+    ft_render_map(data, data->player);
     return (0);
 }
 
 // Function to initialize interactive elements
-void ft_interactive(char **map, int arr[], void *window, t_map *data)
+void ft_interactive(t_map *data)
 {
     t_var position;
     
-    data->width = arr[0];
-    data->height = arr[1];
-    position = find_position(map, arr[1], arr[0], 'P');
+    position = find_position(data->grad, data->height, data->width, 'P');
     if (position.x == -1 || position.y == -1)
         exit(1);
     data->player.x = position.x;
     data->player.y = position.y;
-    position = find_position(map, data->height, data->width, 'E');
-    data->grad = map;
-    mlx_key_hook(window, keyhook, data);
+    position = find_position(data->grad, data->height, data->width, 'E');
+    mlx_key_hook(data->win.win, keyhook, data);
 }

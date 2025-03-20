@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 09:43:27 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/20 13:18:16 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/20 17:27:14 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@ typedef struct s_var
 }			t_var;
 // functions
 // map render
-void ft_render_map(char **map, void *mlx, void *win, int arr[], t_player player);
+void ft_render_map(t_map *data, t_player player);
 void		ft_render(char **map, int width, int height);
-void	ft_interactive(char **map, int arr[], void *window, t_map *data);
+void	ft_interactive(t_map *data);
 // map validation
 int		findItems(char **grad, int width, int height);
 int 	ft_check_map(char** grad, int width, int height);
@@ -97,5 +97,7 @@ char		*ft_read_file(char *str, int *width, int *height);
 void		ft_pterr(int error_code);
 void		ft_free_grad(char **str, int height);
 t_var	find_position(char **grad, int row, int col, char target);
+int ft_close_window(t_map *data);
+
 
 #endif

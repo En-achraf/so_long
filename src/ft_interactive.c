@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 15:19:04 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/17 17:55:14 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/20 08:46:22 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,27 +37,43 @@ int keyhook(int key_code, t_map *data)
         ft_close(data);
     else if ((key_code == KEY_W || key_code == KEY_UP) && data->grad[y - 1][x] != '1') 
     {
-        data->grad[y][x] = '0';
-        data->grad[y - 1][x] = 'P';
-        data->player.y--;
+        if (data->grad[y - 1][x] == 'E')
+            ft_close(data);
+        else {
+            data->grad[y][x] = '0';
+            data->grad[y - 1][x] = 'P';
+            data->player.y--;
+        }
     }
     else if ((key_code == KEY_S || key_code == KEY_DOWN) && data->grad[y + 1][x] != '1')
     {
-        data->grad[y][x] = '0';
-        data->grad[y + 1][x] = 'P';
-        data->player.y++;
+        if (data->grad[y + 1][x] == 'E')
+            ft_close(data);
+        else {
+            data->grad[y][x] = '0';
+            data->grad[y + 1][x] = 'P';
+            data->player.y++;
+        }
     }
     else if ((key_code == KEY_A || key_code == KEY_LEFT) && data->grad[y][x - 1] != '1')
     {
-        data->grad[y][x] = '0';
-        data->grad[y][x - 1] = 'P';
-        data->player.x--;
+        if (data->grad[y][x - 1] == 'E')
+            ft_close(data);
+        else {
+            data->grad[y][x] = '0';
+            data->grad[y][x - 1] = 'P';
+            data->player.x--;
+        }
     }
     else if ((key_code == KEY_D || key_code == KEY_RIGHT) && data->grad[y][x + 1] != '1')
     {
-        data->grad[y][x] = '0';
-        data->grad[y][x + 1] = 'P';
-        data->player.x++;
+        if (data->grad[y][x + 1] == 'E')
+            ft_close(data);
+        else {    
+            data->grad[y][x] = '0';
+            data->grad[y][x + 1] = 'P';
+            data->player.x++;
+        }
     }
     ft_render_map(data->grad, data->win.mlx, data->win.win, (int[]){data->width, data->height}, data->player);
     return (0);

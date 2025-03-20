@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 09:43:29 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/15 06:40:37 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/20 09:03:56 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,13 @@ int	main(int ac, char **av)
 {
     t_var data;
 
-    if (ac < 2)
+    if (ac != 2)
 		return (ft_pterr(0), 1);
     data.map.width = 0;
     data.map.height = 0;
-	check_arg(av[1]);
+	data.count = check_arg(av[1]);
+    if(data.count)
+        exit(1);
     data.str = ft_read_file(av[1], &data.map.width, &data.map.height);
     if(!data.str)
         return (ft_pterr(2), 0);

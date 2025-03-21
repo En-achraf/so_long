@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 09:43:29 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/20 18:11:02 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:08:01 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int initialize_data(t_var *data, char *filename)
     data->map.grad = ft_valid_map(data->str, data->map.width, data->map.height);
     if (!data->map.grad)
         return (3);
-
+    free(data->str);
     return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 17:00:12 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/20 18:00:49 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:08:22 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int ft_close_window(t_map *data)
 
         if (data->win.mlx)
             mlx_destroy_display(data->win.mlx);
+		free(data->win.mlx);
 
         free(data);
     }

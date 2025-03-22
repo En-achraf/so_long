@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 09:43:27 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/22 13:30:19 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/22 14:37:48 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 #define KEY_RIGHT 65363
 #define ESC 65307
 # define BUFFER_SIZE 1024
-# define TEXTURE_SIZE 34
+# define TEXTURE_SIZE 100
 
 // structs
 typedef struct s_win

@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 09:19:00 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/22 13:43:32 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/22 14:48:32 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ void ft_load_textures(t_map *data)
     int width = TEXTURE_SIZE;
     int height = TEXTURE_SIZE;
 
-    data->wall_texture = mlx_xpm_file_to_image(data->win.mlx, "textures/wall.xpm", &width, &height);
+    data->wall_texture = mlx_xpm_file_to_image(data->win.mlx, "textures/Wall.xpm", &width, &height);
     if (!data->wall_texture)
         ft_putstr_fd("Error: Failed to load wall texture\n", 2);
 
-    data->floor_texture = mlx_xpm_file_to_image(data->win.mlx, "textures/floor.xpm", &width, &height);
+    data->floor_texture = mlx_xpm_file_to_image(data->win.mlx, "textures/background.xpm", &width, &height);
     if (!data->floor_texture)
         ft_putstr_fd("Error: Failed to load floor texture\n", 2);
 
-    data->player_texture = mlx_xpm_file_to_image(data->win.mlx, "textures/walk_Down.xpm", &width, &height);
+    data->player_texture = mlx_xpm_file_to_image(data->win.mlx, "textures/player.xpm", &width, &height);
     if (!data->player_texture)
         ft_putstr_fd("Error: Failed to load player texture\n", 2);
 }

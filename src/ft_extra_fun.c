@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 17:00:12 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/21 17:08:22 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/22 15:11:52 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ int ft_close_window(t_map *data)
             mlx_destroy_image(data->win.mlx, data->floor_texture);
         if (data->player_texture)
             mlx_destroy_image(data->win.mlx, data->player_texture);
+		if (data->player_texture)
+            mlx_destroy_image(data->win.mlx, data->collectibles_texture);
+		if (data->player_texture)
+            mlx_destroy_image(data->win.mlx, data->door_texture);
 
         if (data->grad)
             ft_free_grad(data->grad, data->height);

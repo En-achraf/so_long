@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 09:19:00 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/22 14:59:00 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/22 15:40:45 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,23 @@ void ft_load_textures(t_map *data)
     
     width = TEXTURE_SIZE;
     height = TEXTURE_SIZE;
+    data->doorclose_texture = mlx_xpm_file_to_image(data->win.mlx, "textures/opendoor.xpm", &width, &height);
+    if (!data->doorclose_texture)
+        ft_putstr_fd("Error: Failed to load wall texture\n", 2);
     data->wall_texture = mlx_xpm_file_to_image(data->win.mlx, "textures/Wall.xpm", &width, &height);
     if (!data->wall_texture)
         ft_putstr_fd("Error: Failed to load wall texture\n", 2);
-
     data->floor_texture = mlx_xpm_file_to_image(data->win.mlx, "textures/background.xpm", &width, &height);
     if (!data->floor_texture)
         ft_putstr_fd("Error: Failed to load floor texture\n", 2);
-
     data->player_texture = mlx_xpm_file_to_image(data->win.mlx, "textures/player.xpm", &width, &height);
     if (!data->player_texture)
         ft_putstr_fd("Error: Failed to load player texture\n", 2);
-        
-    data->door_texture = mlx_xpm_file_to_image(data->win.mlx, "textures/Doorclose.xpm", &width, &height);
-    if (!data->player_texture)
+    data->dooropen_texture = mlx_xpm_file_to_image(data->win.mlx, "textures/Doorclose.xpm", &width, &height);
+    if (!data->dooropen_texture)
         ft_putstr_fd("Error: Failed to load player texture\n", 2);
-        
     data->collectibles_texture = mlx_xpm_file_to_image(data->win.mlx, "textures/cristal.xpm", &width, &height);
-    if (!data->player_texture)
+    if (!data->collectibles_texture)
         ft_putstr_fd("Error: Failed to load player texture\n", 2);
 }
 
@@ -53,7 +52,7 @@ void ft_render_map(t_map *data, t_player player)
             else if (data->grad[y][x] == '1')
                 mlx_put_image_to_window(data->win.mlx, data->win.win, data->wall_texture, x * TEXTURE_SIZE, y * TEXTURE_SIZE);
             else if(data->grad[y][x] == 'E')
-                mlx_put_image_to_window(data->win.mlx, data->win.win, data->door_texture, x * TEXTURE_SIZE, y * TEXTURE_SIZE);
+                mlx_put_image_to_window(data->win.mlx, data->win.win, data->dooropen_texture, x * TEXTURE_SIZE, y * TEXTURE_SIZE);
             else if(data->grad[y][x] == 'C')
                 mlx_put_image_to_window(data->win.mlx, data->win.win, data->collectibles_texture, x * TEXTURE_SIZE, y * TEXTURE_SIZE);
             x++;

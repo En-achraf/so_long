@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 15:19:04 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/22 13:42:05 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/22 15:42:46 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,12 @@ static void move_player(t_map *data, int new_x, int new_y)
     if (data->grad[new_y][new_x] == 'C')
         data->collectibles--;
     if (data->grad[new_y][new_x] == 'E' && data->collectibles == 0)
+    {
+        mlx_put_image_to_window(data->win.mlx, data->win.win, data->doorclose_texture, new_x * TEXTURE_SIZE, new_y * TEXTURE_SIZE);
         ft_close_window(data);
+    }
+    else if (data->grad[new_y][new_x] == 'E' && data->collectibles != 0)
+        ;
     else {
         data->grad[data->player.y][data->player.x] = '0';
         data->grad[new_y][new_x] = 'P';

@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 09:43:27 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/22 14:37:48 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/22 14:55:32 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ typedef struct s_map
 	void 	*wall_texture;
 	void	*floor_texture;
 	void	*player_texture;
+	void	*door_texture;
+	void	*collectibles_texture;
 	int		collectibles;
 	int		height;
 	int		width;

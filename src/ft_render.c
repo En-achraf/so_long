@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 09:19:00 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/20 17:59:21 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/22 13:43:32 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void ft_render(char **map, int width, int height)
     data->height = height;
     data->width = width;
     data->grad = map;
+    data->collectibles = 0;
     data->win.mlx = mlx_init();
     if (!data->win.mlx)
     {

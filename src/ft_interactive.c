@@ -6,11 +6,31 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 15:19:04 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/20 18:04:18 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/22 13:42:05 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
+
+#include "../includes/so_long.h"
+
+void ft_count_collectibles(t_map *data) {
+    int x;
+    int y;
+
+    y = 0;
+    while(data->height > y)
+    {
+        x = 0;
+        while(data->width > x) {
+            if(data->grad[y][x] == 'C')
+                data->collectibles++;
+            x++;
+        }
+        y++;
+    }
+    ft_putchar_fd(data->collectibles, 1);
+}
 
 static void move_player(t_map *data, int new_x, int new_y)
 {
@@ -50,9 +70,10 @@ void ft_interactive(t_map *data)
     t_var position;
     
     position = find_position(data->grad, data->height, data->width, 'P');
-    if (position.x == -1 || position.y == -1)
+    if (position.x == -1 || position.y == -1 || position.x >= data->width || position.y >= data->height)
         exit(1);
     data->player.x = position.x;
     data->player.y = position.y;
+    ft_count_collectibles(data);
     mlx_key_hook(data->win.win, keyhook, data);
 }

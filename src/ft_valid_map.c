@@ -6,11 +6,26 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 19:56:38 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/04 15:49:47 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/23 16:39:48 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
+
+int ft_check_character(char *str)
+{
+    int i;
+
+    i = 0;
+    while (str[i])
+    {
+        if (str[i] != 'E' && str[i] != 'P' && str[i] != 'C' 
+            && str[i] != '1' && str[i] != '0' && str[i] != '\n')
+            return (ft_pterr(3), 1); 
+        i++;
+    }
+    return (0);
+}
 
 char	**To_2D(char *str, int width, int height)
 {
@@ -35,7 +50,10 @@ char	**To_2D(char *str, int width, int height)
 char	**ft_valid_map(char *str, int width, int height)
 {
 	t_var	data;
-
+	
+	data.count = ft_check_character(str);
+	if(data.count)
+		return (NULL);
 	data.map.grad = To_2D(str, width, height);
 	if (!data.map.grad)
 		return (NULL);

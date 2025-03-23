@@ -6,11 +6,9 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 15:19:04 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/22 15:42:46 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/23 16:18:03 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../includes/so_long.h"
 
 #include "../includes/so_long.h"
 
@@ -29,26 +27,27 @@ void ft_count_collectibles(t_map *data) {
         }
         y++;
     }
-    ft_putchar_fd(data->collectibles, 1);
 }
 
 static void move_player(t_map *data, int new_x, int new_y)
 {
+    if (data->grad[data->player.y][data->player.x] != 'E')
+        data->grad[data->end_y][data->end_x] = 'E';
     if (data->grad[new_y][new_x] == 'C')
         data->collectibles--;
     if (data->grad[new_y][new_x] == 'E' && data->collectibles == 0)
-    {
-        mlx_put_image_to_window(data->win.mlx, data->win.win, data->doorclose_texture, new_x * TEXTURE_SIZE, new_y * TEXTURE_SIZE);
         ft_close_window(data);
-    }
-    else if (data->grad[new_y][new_x] == 'E' && data->collectibles != 0)
+    else if (data->grad[new_y][new_x] == 'E' && data->collectibles != 0) {
         ;
-    else {
+    }
+    else
+    {
         data->grad[data->player.y][data->player.x] = '0';
         data->grad[new_y][new_x] = 'P';
         data->player.x = new_x;
         data->player.y = new_y;
     }
+    ft_putnbr_fd(data->collectibles, 1);
 }
 
 int keyhook(int key_code, t_map *data)
@@ -79,6 +78,9 @@ void ft_interactive(t_map *data)
         exit(1);
     data->player.x = position.x;
     data->player.y = position.y;
+    position = find_position(data->grad, data->height, data->width, 'E');
+    data->end_x = position.x;
+    data->end_y = position.y;
     ft_count_collectibles(data);
     mlx_key_hook(data->win.win, keyhook, data);
 }

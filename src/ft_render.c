@@ -6,11 +6,28 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 09:19:00 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/22 15:40:45 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/23 16:41:51 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
+
+void    ft_doordstatus(t_map *data) {
+    int width;
+    int height;
+    
+    width = TEXTURE_SIZE;
+    height = TEXTURE_SIZE;
+    data->playerindoor_texture = mlx_xpm_file_to_image(data->win.mlx, "textures/playerindoor.xpm", &width, &height);
+    if (!data->playerindoor_texture)
+        ft_putstr_fd("Error: Failed to load player texture\n", 2);
+    data->dooropen_texture = mlx_xpm_file_to_image(data->win.mlx, "textures/opendoor.xpm", &width, &height);
+    if (!data->dooropen_texture)
+        ft_putstr_fd("Error: Failed to load player texture\n", 2);
+    data->doorclose_texture = mlx_xpm_file_to_image(data->win.mlx, "textures/Doorclose.xpm", &width, &height);
+    if (!data->doorclose_texture)
+        ft_putstr_fd("Error: Failed to load wall texture\n", 2);
+}
 
 void ft_load_textures(t_map *data)
 {
@@ -19,9 +36,6 @@ void ft_load_textures(t_map *data)
     
     width = TEXTURE_SIZE;
     height = TEXTURE_SIZE;
-    data->doorclose_texture = mlx_xpm_file_to_image(data->win.mlx, "textures/opendoor.xpm", &width, &height);
-    if (!data->doorclose_texture)
-        ft_putstr_fd("Error: Failed to load wall texture\n", 2);
     data->wall_texture = mlx_xpm_file_to_image(data->win.mlx, "textures/Wall.xpm", &width, &height);
     if (!data->wall_texture)
         ft_putstr_fd("Error: Failed to load wall texture\n", 2);
@@ -30,9 +44,6 @@ void ft_load_textures(t_map *data)
         ft_putstr_fd("Error: Failed to load floor texture\n", 2);
     data->player_texture = mlx_xpm_file_to_image(data->win.mlx, "textures/player.xpm", &width, &height);
     if (!data->player_texture)
-        ft_putstr_fd("Error: Failed to load player texture\n", 2);
-    data->dooropen_texture = mlx_xpm_file_to_image(data->win.mlx, "textures/Doorclose.xpm", &width, &height);
-    if (!data->dooropen_texture)
         ft_putstr_fd("Error: Failed to load player texture\n", 2);
     data->collectibles_texture = mlx_xpm_file_to_image(data->win.mlx, "textures/cristal.xpm", &width, &height);
     if (!data->collectibles_texture)
@@ -52,14 +63,17 @@ void ft_render_map(t_map *data, t_player player)
             else if (data->grad[y][x] == '1')
                 mlx_put_image_to_window(data->win.mlx, data->win.win, data->wall_texture, x * TEXTURE_SIZE, y * TEXTURE_SIZE);
             else if(data->grad[y][x] == 'E')
-                mlx_put_image_to_window(data->win.mlx, data->win.win, data->dooropen_texture, x * TEXTURE_SIZE, y * TEXTURE_SIZE);
+                if(data->collectibles != 0)
+                    mlx_put_image_to_window(data->win.mlx, data->win.win, data->doorclose_texture, x * TEXTURE_SIZE, y * TEXTURE_SIZE);
+                else
+                    mlx_put_image_to_window(data->win.mlx, data->win.win, data->dooropen_texture, x * TEXTURE_SIZE, y * TEXTURE_SIZE);
             else if(data->grad[y][x] == 'C')
                 mlx_put_image_to_window(data->win.mlx, data->win.win, data->collectibles_texture, x * TEXTURE_SIZE, y * TEXTURE_SIZE);
             x++;
         }
         y++;
     }
-    mlx_put_image_to_window(data->win.mlx, data->win.win, data->player_texture, player.x * TEXTURE_SIZE, player.y * TEXTURE_SIZE);
+        mlx_put_image_to_window(data->win.mlx, data->win.win, data->player_texture, player.x * TEXTURE_SIZE, player.y * TEXTURE_SIZE);
 }
 
 
@@ -88,6 +102,7 @@ void ft_render(char **map, int width, int height)
         return (ft_putstr_fd("Error: Window creation failed\n", 2));
     }
     ft_load_textures(data);
+    ft_doordstatus(data);
     t_var position = find_position(map, height, width, 'P');
     if (position.x == -1 || position.y == -1)
     {

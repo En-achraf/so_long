@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 17:00:12 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/22 15:26:36 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/22 16:37:57 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ int ft_close_window(t_map *data)
 {
     if (data)
     {
-        if (data->wall_texture)
+        if (data->playerindoor_texture)
+            mlx_destroy_image(data->win.mlx, data->playerindoor_texture);
+		if (data->wall_texture)
             mlx_destroy_image(data->win.mlx, data->wall_texture);
         if (data->floor_texture)
             mlx_destroy_image(data->win.mlx, data->floor_texture);
@@ -35,9 +37,8 @@ int ft_close_window(t_map *data)
         if (data->win.mlx)
             mlx_destroy_display(data->win.mlx);
 		free(data->win.mlx);
-        free(data);
     }
-    return (exit(0), 0);
+    return (free(data), exit(0), 0);
 }
 
 void	ft_free_grad(char **str, int height)

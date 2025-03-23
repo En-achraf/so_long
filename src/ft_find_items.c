@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:07:11 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/23 16:23:45 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/23 16:47:22 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,7 @@
 int	ft_explore(char **grad, char **visited, int *y, int *x, int width,
 		int height)
 {
-	int	x_new;
-	int	y_new;
-	int	y_new1;
-	int	x_new1;
-
+	int	(x_new), (y_new), (y_new1), (x_new1);
 	if (*x < 0 || *x >= width || *y < 0 || *y >= height)
 		return (0);
 	if (!visited || !visited[*y] || !grad || !grad[*y])

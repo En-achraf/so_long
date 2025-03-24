@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 09:43:27 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/22 16:35:25 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/24 20:27:14 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,9 @@ char		*ft_read_file(char *str, int *width, int *height);
 // utils functions
 void		ft_pterr(int error_code);
 void		ft_free_grad(char **str, int height);
-t_var	find_position(char **grad, int row, int col, char target);
+t_var	*find_position(char **grad, int row, int col, char target);
 int ft_close_window(t_map *data);
+void ft_count_collectibles(t_map *data);
 
 
 #endif

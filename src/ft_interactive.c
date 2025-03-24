@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_interactive.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 15:19:04 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/24 01:11:24 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/24 20:21:11 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,25 @@ int keyhook(int key_code, t_map *data)
 
 void ft_interactive(t_map *data)
 {
-    t_var position;
-    
+    t_var *position;
+
     position = find_position(data->grad, data->height, data->width, 'P');
-    if (position.x == -1 || position.y == -1 || position.x >= data->width || position.y >= data->height)
+    if (!position || position->x == -1 || position->y == -1 || 
+        position->x >= data->width || position->y >= data->height) {
+        free(position);
         exit(1);
-    data->player.x = position.x;
-    data->player.y = position.y;
+    }
+    data->player.x = position->x;
+    data->player.y = position->y;
+    free(position);
     position = find_position(data->grad, data->height, data->width, 'E');
-    data->end_x = position.x;
-    data->end_y = position.y;
+    if (!position || position->x == -1 || position->y == -1) {
+        free(position);
+        exit(1);
+    }
+    data->end_x = position->x;
+    data->end_y = position->y;
+    free(position);
     ft_count_collectibles(data);
     mlx_key_hook(data->win.win, keyhook, data);
 }

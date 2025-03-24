@@ -1,111 +1,78 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_find_items.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/26 15:07:11 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/23 16:47:22 by acennadi         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../includes/so_long.h"
 
-int	ft_explore(char **grad, char **visited, int *y, int *x, int width,
-		int height)
+static int explore(char **grad, t_map *map, int x, int y)
 {
-	int	(x_new), (y_new), (y_new1), (x_new1);
-	if (*x < 0 || *x >= width || *y < 0 || *y >= height)
-		return (0);
-	if (!visited || !visited[*y] || !grad || !grad[*y])
-		return (0);
-	if (visited[*y][*x] == 'y' || grad[*y][*x] == '1')
-		return (0);
-	if (grad[*y][*x] == 'E')
-		return (1);
-	visited[*y][*x] = 'y';
-	x_new = *x + 1;
-	y_new = *y + 1;
-	x_new1 = *x - 1;
-	y_new1 = *y - 1;
-	if (ft_explore(grad, visited, y, &x_new, width, height) || ft_explore(grad,
-			visited, y, &x_new1, width, height) || ft_explore(grad, visited,
-			&y_new, x, width, height) || ft_explore(grad, visited, &y_new1, x,
-			width, height))
-		return (1);
-	return (0);
+    if (x < 0 || x >= map->width || y < 0 || y >= map->height)
+        return 0;
+    if (map->visited[y][x] == 'y' || grad[y][x] == '1')
+        return 0;
+    if (grad[y][x] == 'C')
+        map->collectibles--;
+    if (grad[y][x] == 'E')
+        return (map->collectibles == 0);
+    map->visited[y][x] = 'y';
+    if (explore(grad, map, x + 1, y) || explore(grad, map, x - 1, y) ||
+        explore(grad, map, x, y + 1) || explore(grad, map, x, y - 1))
+        return 1;
+    map->visited[y][x] = 'n';
+    return 0;
 }
 
-char	**fill(char **arr, int width, int height)
+char **create_visited(int width, int height)
 {
-	t_var	data;
-
-	arr = malloc(sizeof(char *) * height);
-	if (!arr)
-		return (NULL);
-	data.y = 0;
-	while (data.y < height)
-	{
-		arr[data.y] = malloc(sizeof(char) * width + 1);
-		if (!arr[data.y])
-			return (ft_free_grad(arr, height), NULL);
-		data.x = 0;
-		while (data.x < width)
-		{
-			arr[data.y][data.x] = 'F';
-			data.x++;
-		}
-		arr[data.y][data.x] = '\0';
-		data.y++;
-	}
-	return (arr);
+    char **visited = malloc(height * sizeof(char *));
+    if (!visited) return NULL;
+    for (int y = 0; y < height; y++) {
+        visited[y] = malloc(width + 1);
+        if (!visited[y]) {
+            ft_free_grad(visited, y);
+            return NULL;
+        }
+        ft_memset(visited[y], 'n', width);
+        visited[y][width] = '\0';
+    }
+    return visited;
 }
 
-t_var	find_position(char **grad, int row, int col, char target)
+t_var *find_position(char **grad, int rows, int cols, char target)
 {
-	t_var	position;
-	int		i;
-	int		j;
-
-	i = 0;
-	position.x = -1;
-	position.y = -1;
-	while (i < row)
-	{
-		j = 0;
-		while (j < col)
-		{
-			if (grad[i][j] == target)
-			{
-				position.x = j;
-				position.y = i;
-				return (position);
-			}
-			j++;
-		}
-		i++;
-	}
-	return (position);
+    t_var *pos = malloc(sizeof(t_var));
+    if (!pos) return NULL;
+    pos->x = -1;
+    pos->y = -1;
+    for (int y = 0; y < rows; y++) {
+        for (int x = 0; x < cols; x++) {
+            if (grad[y][x] == target) {
+                pos->x = x;
+                pos->y = y;
+                return pos;
+            }
+        }
+    }
+    return pos;
 }
 
-int	findItems(char **grad, int width, int height)
+int findItems(char **grad, int width, int height)
 {
-	t_var(position);
-	int(result);
-	position.count = ft_check_map(grad, width, height);
-	if (position.count == 1)
-		return (0);
-	position = find_position(grad, height, width, 'P');
-	if (position.x == -1 || position.y == -1)
-		return (0);
-	position.map.start_x = position.x;
-	position.map.start_y = position.y;
-	position.map.visited = fill(position.map.visited, width, height);
-	if (!position.map.visited)
-		return (0);
-	result = ft_explore(grad, position.map.visited, &position.map.start_y,
-			&position.map.start_x, width, height);
-	ft_free_grad(position.map.visited, height);
-	return (result);
+    t_var *pos = find_position(grad, height, width, 'P');
+    if (pos->x == -1 || pos->y == -1) {
+        free(pos);
+        return 0;
+    }
+    t_map map = {
+        .grad = grad,
+        .width = width,
+        .height = height,
+        .collectibles = 0,
+        .visited = create_visited(width, height)
+    };
+    if (!map.visited) {
+        free(pos);
+        return 0;
+    }
+    ft_count_collectibles(&map);
+    int result = explore(grad, &map, pos->x, pos->y);
+    ft_free_grad(map.visited, height);
+    free(pos);
+    return result;
 }

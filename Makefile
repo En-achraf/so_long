@@ -2,8 +2,9 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -Iincludes $(LIBFT_INC)
 MLXLIB = -lXext -lX11 -lm -lz
-LIBMLX = -L./usr/local/lib -lmlx
-INCLUDE = -I./usr/local/include
+LIBMLX = -L./includes -lmlx
+
+INCLUDE = -I./includes
 LIBFT_INC = -I$(LIBFT_DIR)
 LIBFT_LINK = -L$(LIBFT_DIR) -l:libft.a
 

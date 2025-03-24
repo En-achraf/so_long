@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 15:19:04 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/23 16:18:03 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/24 01:11:24 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ static void move_player(t_map *data, int new_x, int new_y)
         data->player.x = new_x;
         data->player.y = new_y;
     }
-    ft_putnbr_fd(data->collectibles, 1);
 }
 
 int keyhook(int key_code, t_map *data)

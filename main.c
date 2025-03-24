@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "includes/so_long.h"
-
 #include "includes/so_long.h"
 
 int check_arg(char *arg)

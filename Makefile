@@ -2,9 +2,8 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -Iincludes $(LIBFT_INC)
 MLXLIB = -lXext -lX11 -lm -lz
-LIBMLX = -L./includes -lmlx
-
-INCLUDE = -I./includes
+LIBMLX = -L./usr/local/lib -lmlx
+INCLUDE = -I./usr/local/include
 LIBFT_INC = -I$(LIBFT_DIR)
 LIBFT_LINK = -L$(LIBFT_DIR) -l:libft.a
 
@@ -40,6 +39,6 @@ fclean: clean
 
 re: fclean all
 
-.SECONDARY: $(OBJECTS)
-
 .PHONY: all re fclean clean
+
+.SECONDARY: $(OBJECTS)

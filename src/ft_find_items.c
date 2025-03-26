@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 16:16:36 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/26 16:23:00 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/26 16:36:33 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,22 +85,24 @@ t_var	*find_position(char **grad, int rows, int cols, char target)
 int	finditems(char **grad, int width, int height)
 {
 	t_var	*pos;
-	
+	t_map	map;
+	int		result;
+
 	pos = find_position(grad, height, width, 'P');
 	if (pos->x == -1 || pos->y == -1)
 	{
 		free(pos);
 		return (0);
 	}
-	t_map map = {.grad = grad, .width = width, .height = height,
-		.collectibles = 0, .visited = create_visited(width, height)};
+	map.grad = grad;
+	map.width = width;
+	map.height = height;
+	map.collectibles = 0;
+	map.visited = create_visited(width, height);
 	if (!map.visited)
-	{
-		free(pos);
-		return (0);
-	}
+		return (free(pos), 0);
 	ft_count_collectibles(&map);
-	int result = explore(grad, &map, pos->x, pos->y);
+	result = explore(grad, &map, pos->x, pos->y);
 	ft_free_grad(map.visited, height);
 	free(pos);
 	return (result);

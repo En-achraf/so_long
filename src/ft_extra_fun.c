@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 17:00:12 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/26 08:01:34 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/26 15:57:20 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,17 @@ int ft_close_window(t_map *data)
 {
     if (data)
     {
-        if (data->playerindoor_texture)
-            mlx_destroy_image(data->win.mlx, data->playerindoor_texture);
 		if (data->wall_texture)
             mlx_destroy_image(data->win.mlx, data->wall_texture);
         if (data->floor_texture)
             mlx_destroy_image(data->win.mlx, data->floor_texture);
         if (data->player_texture)
             mlx_destroy_image(data->win.mlx, data->player_texture);
-		if (data->player_texture)
+		if (data->collectibles_texture)
             mlx_destroy_image(data->win.mlx, data->collectibles_texture);
-		if (data->player_texture)
+		if (data->doorclose_texture)
             mlx_destroy_image(data->win.mlx, data->doorclose_texture);
-		if (data->player_texture)
+		if (data->dooropen_texture)
             mlx_destroy_image(data->win.mlx, data->dooropen_texture);
         if (data->grad)
             ft_free_grad(data->grad, data->height);

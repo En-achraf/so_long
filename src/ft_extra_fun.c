@@ -6,37 +6,37 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 17:00:12 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/26 15:57:20 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/26 16:14:22 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-int ft_close_window(t_map *data)
+int	ft_close_window(t_map *data)
 {
-    if (data)
-    {
+	if (data)
+	{
 		if (data->wall_texture)
-            mlx_destroy_image(data->win.mlx, data->wall_texture);
-        if (data->floor_texture)
-            mlx_destroy_image(data->win.mlx, data->floor_texture);
-        if (data->player_texture)
-            mlx_destroy_image(data->win.mlx, data->player_texture);
+			mlx_destroy_image(data->win.mlx, data->wall_texture);
+		if (data->floor_texture)
+			mlx_destroy_image(data->win.mlx, data->floor_texture);
+		if (data->player_texture)
+			mlx_destroy_image(data->win.mlx, data->player_texture);
 		if (data->collectibles_texture)
-            mlx_destroy_image(data->win.mlx, data->collectibles_texture);
+			mlx_destroy_image(data->win.mlx, data->collectibles_texture);
 		if (data->doorclose_texture)
-            mlx_destroy_image(data->win.mlx, data->doorclose_texture);
+			mlx_destroy_image(data->win.mlx, data->doorclose_texture);
 		if (data->dooropen_texture)
-            mlx_destroy_image(data->win.mlx, data->dooropen_texture);
-        if (data->grad)
-            ft_free_grad(data->grad, data->height);
-        if (data->win.win)
-            mlx_destroy_window(data->win.mlx, data->win.win);
-        if (data->win.mlx)
-            mlx_destroy_display(data->win.mlx);
+			mlx_destroy_image(data->win.mlx, data->dooropen_texture);
+		if (data->grad)
+			ft_free_grad(data->grad, data->height);
+		if (data->win.win)
+			mlx_destroy_window(data->win.mlx, data->win.win);
+		if (data->win.mlx)
+			mlx_destroy_display(data->win.mlx);
 		free(data->win.mlx);
-    }
-    return (free(data), exit(0), 0);
+	}
+	return (free(data), exit(0), 0);
 }
 
 void	ft_free_grad(char **str, int height)
@@ -81,8 +81,8 @@ int	ft_check_border(char **grad, int width, int height)
 				|| data.x == (width - 1))
 			{
 				if (grad[data.y][data.x] != '1')
-					return (ft_putstr_fd("Error: Map is not surrounded by walls\n",
-							2), 1);
+					return (ft_putstr_fd(
+							"Error: Map is not surrounded by walls\n", 2), 1);
 			}
 			data.x++;
 		}

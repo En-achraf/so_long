@@ -34,20 +34,25 @@ char **create_visited(int width, int height)
     return visited;
 }
 
-t_var *find_position(char **grad, int rows, int cols, char target)
-{
+
+t_var *find_position(char **grad, int rows, int cols, char target) {
     t_var *pos = malloc(sizeof(t_var));
     if (!pos) return NULL;
     pos->x = -1;
     pos->y = -1;
-    for (int y = 0; y < rows; y++) {
-        for (int x = 0; x < cols; x++) {
+
+    int y = 0;
+    while (y < rows) {
+        int x = 0;
+        while (x < cols) {
             if (grad[y][x] == target) {
                 pos->x = x;
                 pos->y = y;
                 return pos;
             }
+            x++;
         }
+        y++;
     }
     return pos;
 }

@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 09:43:29 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/22 13:06:03 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:05:49 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,7 @@ int main(int ac, char **av)
 
     status = initialize_data(&data, av[1]);
     if (status)
-    {
-        if (status == 3)
-            free(data.str);
         return (ft_pterr(status), 1);
-    }
 
     ft_render(data.map.grad, data.map.width, data.map.height);
 

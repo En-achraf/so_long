@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 19:43:53 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/21 17:06:25 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:05:56 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,11 @@ char *ft_read_file(char *str, int *width, int *height)
         return (NULL);
     }
     data.str = read_loop(data.fd, data.str, width, height);
-    if (!data.str)
+    if (!data.str || (*width < 4 || *width > 30) ||(*height < 4 || *height > 20))
     {
         close(data.fd);
-        return (NULL);
+        free(data.str);
+        return NULL;
     }
     close(data.fd);
     return (data.str);

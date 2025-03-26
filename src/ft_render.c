@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_render.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 09:19:00 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/24 23:21:11 by marvin           ###   ########.fr       */
+/*   Updated: 2025/03/26 08:03:40 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@ void    ft_doordstatus(t_map *data) {
     
     width = TEXTURE_SIZE;
     height = TEXTURE_SIZE;
-    data->playerindoor_texture = mlx_xpm_file_to_image(data->win.mlx, "textures/playerindoor.xpm", &width, &height);
-    if (!data->playerindoor_texture)
-        ft_putstr_fd("Error: Failed to load player texture\n", 2);
     data->dooropen_texture = mlx_xpm_file_to_image(data->win.mlx, "textures/opendoor.xpm", &width, &height);
     if (!data->dooropen_texture)
         ft_putstr_fd("Error: Failed to load player texture\n", 2);

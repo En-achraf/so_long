@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 15:19:04 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/26 17:10:33 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/26 17:14:30 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ int	keyhook(int key_code, t_map *data)
 	y = data->player.y;
 	if (key_code == ESC)
 		ft_close_window(data);
-	else if ((key_code == KEY_W || key_code == KEY_UP) && y > 0 && data->grad[y
-		- 1][x] != '1')
+	else if ((key_code == KEY_W || key_code == KEY_UP) && y > 0
+		&& data->grad[y - 1][x] != '1')
 		move_player(data, x, y - 1);
 	else if ((key_code == KEY_S || key_code == KEY_DOWN) && y < data->height - 1
 		&& data->grad[y + 1][x] != '1')

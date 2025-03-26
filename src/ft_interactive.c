@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 15:19:04 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/26 17:14:30 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/26 17:25:00 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	move_player(t_map *data, int new_x, int new_y)
 		data->collectibles--;
 	if (data->grad[new_y][new_x] == 'E' && data->collectibles == 0)
 		ft_close_window(data);
-	else
+	else if (data->grad[new_y][new_x] == '0' || data->grad[new_y][new_x] == 'C')
 	{
 		data->grad[data->player.y][data->player.x] = '0';
 		data->grad[new_y][new_x] = 'P';

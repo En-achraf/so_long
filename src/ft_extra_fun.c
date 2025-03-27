@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 17:00:12 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/26 16:14:22 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/27 15:35:13 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ int	ft_check_border(char **grad, int width, int height)
 				|| data.x == (width - 1))
 			{
 				if (grad[data.y][data.x] != '1')
-					return (ft_putstr_fd(
-							"Error: Map is not surrounded by walls\n", 2), 1);
+					return (ft_putstr_fd("Error: not surrounded by walls\n", 2),
+						1);
 			}
 			data.x++;
 		}

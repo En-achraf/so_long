@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 15:19:04 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/26 17:25:00 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/27 15:53:35 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ void	ft_count_collectibles(t_map *data)
 
 static void	move_player(t_map *data, int new_x, int new_y)
 {
+	ft_putstr_fd("PLAYER_MOVE : ", 1);
+	ft_putnbr_fd(data->player.player_steps, 1);
+	ft_putchar_fd('\n', 1);
 	if (data->grad[data->player.y][data->player.x] != 'E')
 		data->grad[data->end_y][data->end_x] = 'E';
 	if (data->grad[new_y][new_x] == 'C')
@@ -45,6 +48,7 @@ static void	move_player(t_map *data, int new_x, int new_y)
 		data->grad[new_y][new_x] = 'P';
 		data->player.x = new_x;
 		data->player.y = new_y;
+		data->player.player_steps++;
 	}
 }
 
@@ -57,8 +61,8 @@ int	keyhook(int key_code, t_map *data)
 	y = data->player.y;
 	if (key_code == ESC)
 		ft_close_window(data);
-	else if ((key_code == KEY_W || key_code == KEY_UP) && y > 0
-		&& data->grad[y - 1][x] != '1')
+	else if ((key_code == KEY_W || key_code == KEY_UP) && y > 0 && data->grad[y
+			- 1][x] != '1')
 		move_player(data, x, y - 1);
 	else if ((key_code == KEY_S || key_code == KEY_DOWN) && y < data->height - 1
 		&& data->grad[y + 1][x] != '1')
@@ -77,6 +81,7 @@ void	ft_interactive(t_map *data)
 {
 	t_var	*position;
 
+	data->player.player_steps = 0;
 	position = find_position(data->grad, data->height, data->width, 'P');
 	if (!position || position->x == -1 || position->y == -1
 		|| position->x >= data->width || position->y >= data->height)

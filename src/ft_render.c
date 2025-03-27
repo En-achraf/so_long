@@ -6,29 +6,11 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 09:19:00 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/26 17:17:26 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/27 15:28:25 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
-
-void	ft_doordstatus(t_map *data)
-{
-	int	width;
-	int	height;
-
-	width = TEXTURE_SIZE;
-	height = TEXTURE_SIZE;
-	data->dooropen_texture = mlx_xpm_file_to_image(data->win.mlx,
-			"textures/opendoor.xpm", &width, &height);
-	data->doorclose_texture = mlx_xpm_file_to_image(data->win.mlx,
-			"textures/Doorclose.xpm", &width, &height);
-	if (!data->doorclose_texture || !data->dooropen_texture)
-	{
-		ft_putstr_fd("Error: Failed to load player texture\n", 2);
-		ft_close_window(data);
-	}
-}
 
 void	ft_load_textures(t_map *data)
 {
@@ -45,8 +27,13 @@ void	ft_load_textures(t_map *data)
 			"textures/player.xpm", &width, &height);
 	data->collectibles_texture = mlx_xpm_file_to_image(data->win.mlx,
 			"textures/cristal.xpm", &width, &height);
+	data->dooropen_texture = mlx_xpm_file_to_image(data->win.mlx,
+			"textures/opendoor.xpm", &width, &height);
+	data->doorclose_texture = mlx_xpm_file_to_image(data->win.mlx,
+			"textures/Doorclose.xpm", &width, &height);
 	if (!data->collectibles_texture || !data->wall_texture
-		|| !data->player_texture || !data->floor_texture)
+		|| !data->player_texture || !data->floor_texture
+		|| !data->dooropen_texture || !data->doorclose_texture)
 	{
 		ft_putstr_fd("Error: Failed to load player texture\n", 2);
 		ft_close_window(data);

@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 09:43:27 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/26 16:23:42 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/27 15:25:22 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define KEY_DOWN 65364
 # define KEY_RIGHT 65363
 # define ESC 65307
-# define BUFFER_SIZE 1024
+# define BUFFER_SIZE 1
 # define TEXTURE_SIZE 100
 
 // structs
@@ -45,6 +45,7 @@ typedef struct s_player
 {
 	int			x;
 	int			y;
+	int			player_steps;
 }				t_player;
 
 typedef struct s_map
@@ -83,7 +84,7 @@ typedef struct s_var
 	int			enmy_count;
 	t_map		map;
 }				t_var;
-// functions
+// functionsmov
 // map render
 void			ft_render_map(t_map *data, t_player player);
 void			ft_render(char **map, int width, int height);

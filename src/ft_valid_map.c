@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 19:56:38 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/26 17:05:24 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/27 16:37:14 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,27 @@ int	ft_check_bourders(char **map, int height, int width)
 
 int	ft_check_character(char *str)
 {
-	int	i;
+	t_var	data;
 
-	i = 0;
-	while (str[i])
+	data.i = 0;
+	data.player_count = 0;
+	data.enmy_count = 0;
+	data.exit_count = 0;
+	while (str[data.i])
 	{
-		if (str[i] != 'E' && str[i] != 'P' && str[i] != 'C' && str[i] != '1'
-			&& str[i] != '0' && str[i] != '\n')
+		if (str[data.i] == 'P')
+			data.player_count++;
+		if (str[data.i] == 'E')
+			data.exit_count++;
+		if (str[data.i] == 'C')
+			data.enmy_count++;
+		if (str[data.i] != 'E' && str[data.i] != 'P' && str[data.i] != 'C'
+			&& str[data.i] != '1' && str[data.i] != '0' && str[data.i] != '\n')
 			return (ft_pterr(3), 1);
-		i++;
+		data.i++;
 	}
+	if (data.player_count != 1 || data.exit_count != 1 || data.enmy_count < 1)
+		return (ft_pterr(3), 1);
 	return (0);
 }
 
@@ -74,7 +85,7 @@ char	**ft_valid_map(char *str, int width, int height)
 
 	data.count = ft_check_character(str);
 	if (data.count)
-		return (NULL);
+		return (free(str), NULL);
 	data.map.grad = to_2d(str, width, height);
 	if (!data.map.grad)
 		return (NULL);

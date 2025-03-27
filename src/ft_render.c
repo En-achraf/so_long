@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 09:19:00 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/27 16:09:33 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/27 16:15:39 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ void	ft_render(char **map, int width, int height)
 		return (ft_putstr_fd("Error: Window creation failed\n", 2));
 	}
 	ft_load_textures(data);
-	ft_doordstatus(data);
 	position = find_position(map, height, width, 'P');
 	if (!position || position->x == -1 || position->y == -1
 		|| position->x >= width || position->y >= height)

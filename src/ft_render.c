@@ -6,11 +6,33 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 09:19:00 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/27 15:28:25 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/27 16:09:33 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
+
+void	ft_put_images(t_map *data, int y, int x)
+{
+	if (data->grad[y][x] == '0')
+		mlx_put_image_to_window(data->win.mlx, data->win.win,
+			data->floor_texture, x * TEXTURE_SIZE, y * TEXTURE_SIZE);
+	else if (data->grad[y][x] == '1')
+		mlx_put_image_to_window(data->win.mlx, data->win.win,
+			data->wall_texture, x * TEXTURE_SIZE, y * TEXTURE_SIZE);
+	else if (data->grad[y][x] == 'E')
+	{
+		if (data->collectibles != 0)
+			mlx_put_image_to_window(data->win.mlx, data->win.win,
+				data->doorclose_texture, x * TEXTURE_SIZE, y * TEXTURE_SIZE);
+		else
+			mlx_put_image_to_window(data->win.mlx, data->win.win,
+				data->dooropen_texture, x * TEXTURE_SIZE, y * TEXTURE_SIZE);
+	}
+	else if (data->grad[y][x] == 'C')
+		mlx_put_image_to_window(data->win.mlx, data->win.win,
+			data->collectibles_texture, x * TEXTURE_SIZE, y * TEXTURE_SIZE);
+}
 
 void	ft_load_textures(t_map *data)
 {
@@ -51,25 +73,7 @@ void	ft_render_map(t_map *data, t_player player)
 		x = 0;
 		while (x < data->width)
 		{
-			if (data->grad[y][x] == '0')
-				mlx_put_image_to_window(data->win.mlx, data->win.win,
-					data->floor_texture, x * TEXTURE_SIZE, y * TEXTURE_SIZE);
-			else if (data->grad[y][x] == '1')
-				mlx_put_image_to_window(data->win.mlx, data->win.win,
-					data->wall_texture, x * TEXTURE_SIZE, y * TEXTURE_SIZE);
-			else if (data->grad[y][x] == 'E')
-				if (data->collectibles != 0)
-					mlx_put_image_to_window(data->win.mlx, data->win.win,
-						data->doorclose_texture, x * TEXTURE_SIZE, y
-						* TEXTURE_SIZE);
-				else
-					mlx_put_image_to_window(data->win.mlx, data->win.win,
-						data->dooropen_texture, x * TEXTURE_SIZE, y
-						* TEXTURE_SIZE);
-			else if (data->grad[y][x] == 'C')
-				mlx_put_image_to_window(data->win.mlx, data->win.win,
-					data->collectibles_texture, x * TEXTURE_SIZE, y
-					* TEXTURE_SIZE);
+			ft_put_images(data, y, x);
 			x++;
 		}
 		y++;

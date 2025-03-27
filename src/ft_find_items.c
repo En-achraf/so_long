@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 16:16:36 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/26 16:36:33 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/27 17:08:21 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static int	explore(char **grad, t_map *map, int x, int y)
 	if (explore(grad, map, x + 1, y) || explore(grad, map, x - 1, y)
 		|| explore(grad, map, x, y + 1) || explore(grad, map, x, y - 1))
 		return (1);
-	map->visited[y][x] = 'n';
 	return (0);
 }
 

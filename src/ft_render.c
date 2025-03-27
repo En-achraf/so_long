@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 09:19:00 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/27 16:15:39 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/27 16:51:20 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,21 @@ void	ft_render_map(t_map *data, t_player player)
 		player.x * TEXTURE_SIZE, player.y * TEXTURE_SIZE);
 }
 
+void	find_player(t_var *position, int width, int height, t_map *data)
+{
+	if (!position || position->x == -1 || position->y == -1
+		|| position->x >= width || position->y >= height)
+	{
+		if (position)
+			free(position);
+		ft_putstr_fd("Error: Player position not found\n", 2);
+		ft_close_window(data);
+	}
+	data->player.x = position->x;
+	data->player.y = position->y;
+	free(position);
+}
+
 void	ft_render(char **map, int width, int height)
 {
 	t_map	*data;
@@ -96,30 +111,14 @@ void	ft_render(char **map, int width, int height)
 	data->collectibles = 0;
 	data->win.mlx = mlx_init();
 	if (!data->win.mlx)
-	{
 		ft_close_window(data);
-		return (ft_putstr_fd("Error: MLX initialization failed\n", 2));
-	}
 	data->win.win = mlx_new_window(data->win.mlx, width * TEXTURE_SIZE, height
 			* TEXTURE_SIZE, "so_long");
 	if (!data->win.win)
-	{
 		ft_close_window(data);
-		return (ft_putstr_fd("Error: Window creation failed\n", 2));
-	}
 	ft_load_textures(data);
-	position = find_position(map, height, width, 'P');
-	if (!position || position->x == -1 || position->y == -1
-		|| position->x >= width || position->y >= height)
-	{
-		if (position)
-			free(position);
-		ft_putstr_fd("Error: Player position not found\n", 2);
-		ft_close_window(data);
-	}
-	data->player.x = position->x;
-	data->player.y = position->y;
-	free(position);
+	position = find_position(data->grad, height, width, 'P');
+	find_player(position, width, height, data);
 	ft_render_map(data, data->player);
 	ft_interactive(data);
 	mlx_hook(data->win.win, 17, 0, ft_close_window, data);

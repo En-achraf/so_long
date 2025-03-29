@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 09:19:00 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/27 16:51:20 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/29 20:33:54 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_put_images(t_map *data, int y, int x)
 			data->wall_texture, x * TEXTURE_SIZE, y * TEXTURE_SIZE);
 	else if (data->grad[y][x] == 'E')
 	{
-		if (data->collectibles != 0)
+		if (data->collectibles > 0)
 			mlx_put_image_to_window(data->win.mlx, data->win.win,
 				data->doorclose_texture, x * TEXTURE_SIZE, y * TEXTURE_SIZE);
 		else

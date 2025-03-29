@@ -6,57 +6,27 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 19:56:38 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/29 16:45:34 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/29 17:38:20 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-int	ft_check_length(char **map, int height, int width)
+int	ft_check_bourders(char **map, int height, int width)
 {
-	int	y;
-	int	actual_width;
-
-	y = 0;
-	if (!map)
-		return (1);
-	while (y < height)
-	{
-		if (!map[y])
-			return (1);
-		actual_width = 0;
-		while (map[y][actual_width] && map[y][actual_width] != '\n')
-			actual_width++;
-		if (actual_width != width)
-			return (ft_putstr_fd("Error: Map width is inconsistent\n", 2), 1);
-		if (map[y][width] != '\0' && map[y][width] != '\n')
-			return (ft_putstr_fd("Error: Extra characters beyond map width\n",
-					2), 1);
-		y++;
-	}
-	return (0);
-}
-
-int	ft_check_borders(char **map, int height, int width)
-{
-	int	y;
 	int	x;
+	int	y;
 
 	y = 0;
 	while (y < height)
 	{
-		if (map[y][0] != '1' || map[y][width - 1] != '1')
-			return (ft_putstr_fd("Error: Map not surrounded by walls\n", 2), 1);
-		if (y == 0 || y == height - 1)
+		x = 0;
+		while (x < width)
 		{
-			x = 0;
-			while (x < width)
-			{
-				if (map[y][x] != '1')
-					return (ft_putstr_fd("Error: Map not surrounded by walls\n",
-							2), 1);
-				x++;
-			}
+			if (map[y][width - 1] == '0' || map[y][0] == '0')
+				return (ft_putstr_fd("the map not surrounded by walls\n", 2),
+					1);
+			x++;
 		}
 		y++;
 	}
@@ -119,10 +89,7 @@ char	**ft_valid_map(char *str, int width, int height)
 	data.map.grad = to_2d(str, width, height);
 	if (!data.map.grad)
 		return (NULL);
-	data.count = ft_check_length(data.map.grad, height, width);
-	if (data.count)
-		return (free(str), ft_free_grad(data.map.grad, height), NULL);
-	data.count = ft_check_borders(data.map.grad, height, width);
+	data.count = ft_check_bourders(data.map.grad, height, width);
 	if (data.count)
 		return (free(str), ft_free_grad(data.map.grad, height), NULL);
 	data.count = finditems(data.map.grad, width, height);

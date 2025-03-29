@@ -6,11 +6,33 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 19:56:38 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/29 17:38:20 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/29 20:24:53 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
+
+int ft_check_lenth(char **map, int height, int width)
+{
+    int y;
+
+    if (!map)
+        return (ft_putstr_fd("Error: Map is NULL\n", 2), 1);
+    y = 0;
+    while (y < height)
+    {
+        if (!map[y])
+            return (ft_putstr_fd("Error: Map row is NULL\n", 2), 1);
+        size_t len = ft_strlen(map[y]);
+        if (len > 0 && map[y][len - 1] == '\n')
+            len--;
+            
+        if (len != (size_t)width)
+            return (ft_putstr_fd("Error: Map width is inconsistent\n", 2), 1);
+        y++;
+    }
+    return (0);
+}
 
 int	ft_check_bourders(char **map, int height, int width)
 {
@@ -62,20 +84,26 @@ int	ft_check_character(char *str)
 char	**to_2d(char *str, int width, int height)
 {
 	t_var	data;
+	char	*current_pos;
 
+	current_pos = str;
 	data.i = 0;
-	data.map.grad = malloc((height * sizeof(char *)));
+	data.map.grad = malloc((height + 1) * sizeof(char *));
 	if (!data.map.grad)
 		return (ft_pterr(2), NULL);
-	while (data.i < height)
+	while (data.i < height && *current_pos)
 	{
-		data.map.grad[data.i] = malloc(sizeof(char) * (width + 1));
+		data.map.grad[data.i] = malloc(width + 1);
 		if (!data.map.grad[data.i])
-			return (ft_pterr(2), ft_free_grad(data.map.grad, height), NULL);
-		ft_strlcpy(data.map.grad[data.i], str + (data.i * (width + 1)), width
-			+ 1);
+			return (ft_pterr(2), ft_free_grad(data.map.grad, data.i), NULL);
+		ft_strlcpy(data.map.grad[data.i], current_pos, width + 1);
+		while (*current_pos && *current_pos != '\n')
+			current_pos++;
+		if (*current_pos == '\n')
+			current_pos++;
 		data.i++;
 	}
+	data.map.grad[data.i] = NULL;
 	return (data.map.grad);
 }
 
@@ -90,6 +118,9 @@ char	**ft_valid_map(char *str, int width, int height)
 	if (!data.map.grad)
 		return (NULL);
 	data.count = ft_check_bourders(data.map.grad, height, width);
+	if (data.count)
+		return (free(str), ft_free_grad(data.map.grad, height), NULL);
+	data.count = ft_check_lenth(data.map.grad, height, width);
 	if (data.count)
 		return (free(str), ft_free_grad(data.map.grad, height), NULL);
 	data.count = finditems(data.map.grad, width, height);

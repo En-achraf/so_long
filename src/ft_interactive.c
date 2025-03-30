@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 15:19:04 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/29 15:45:15 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/29 22:22:34 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	ft_interactive(t_map *data)
 {
 	t_var	*position;
 
-	data->player.player_steps = 0;
+	data->player.player_steps = 1;
 	position = find_position(data->grad, data->height, data->width, 'P');
 	if (!position || position->x == -1 || position->y == -1
 		|| position->x >= data->width || position->y >= data->height)

@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 09:43:27 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/27 16:34:23 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/30 12:07:45 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,15 @@ typedef struct s_var
 	int			enmy_count;
 	t_map		map;
 }				t_var;
+
+typedef struct s_line_data
+{
+	int			current_width;
+	int			first_line;
+	int			*width;
+	int			*height;
+}				t_line_data;
+
 // functionsmov
 // map render
 void			ft_render_map(t_map *data, t_player player);
@@ -103,5 +112,8 @@ void			ft_free_grad(char **str, int height);
 t_var			*find_position(char **grad, int row, int col, char target);
 int				ft_close_window(t_map *data);
 void			ft_count_collectibles(t_map *data);
+int				check_lenth(char *saved, int arr[], int *width, int *height);
+int				handle_character(char c, t_line_data *data);
+int				process_line_data(t_line_data *data);
 
 #endif

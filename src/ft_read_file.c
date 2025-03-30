@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 19:43:53 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/29 17:38:17 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/03/30 12:11:51 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,32 +43,33 @@ static char	*handle_read_error(char *buffer, char *saved, int fd)
 	return (NULL);
 }
 
-static void	update_dimensions(char *saved, int *width, int *height)
+static int	update_dimensions(char *saved, int *width, int *height)
 {
-	int	i;
+	int			i;
+	int			status;
+	t_line_data	data;
 
-	i = 0;
-	if (*height == 0)
-	{
-		while (saved[i] && saved[i] != '\n')
-			i++;
-		*width = i;
-	}
+	data.current_width = 0;
+	data.first_line = 1;
+	data.width = width;
+	data.height = height;
 	i = 0;
 	while (saved[i])
 	{
-		if (saved[i] == '\n')
-			(*height)++;
+		status = handle_character(saved[i], &data);
+		if (status)
+			return (1);
 		i++;
 	}
-	if (saved[i - 1] != '\n' && i > 0)
-		(*height)++;
+	status = process_line_data(&data);
+	return (status);
 }
 
 static char	*read_loop(int fd, char *saved, int *width, int *height)
 {
 	char	*buffer;
 	ssize_t	count;
+	int		data;
 
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer)
@@ -84,8 +85,10 @@ static char	*read_loop(int fd, char *saved, int *width, int *height)
 		if (!saved)
 			return (ft_pterr(2), handle_read_error(buffer, saved, fd));
 	}
-	update_dimensions(saved, width, height);
+	data = update_dimensions(saved, width, height);
 	free(buffer);
+	if (data)
+		return (free(saved), NULL);
 	return (saved);
 }
 

@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 19:56:38 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/30 12:17:38 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/04/01 14:48:12 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,18 @@ int	ft_check_bourders(char **map, int height, int width)
 	int	x;
 	int	y;
 
+	x = 0;
+	while (x < width)
+	{
+		if (map[0][x] != '1' || map[height - 1][x] != '1')
+			return (ft_putstr_fd("the map not surrounded by walls\n", 2), 1);
+		x++;
+	}
 	y = 0;
 	while (y < height)
 	{
-		x = 0;
-		while (x < width)
-		{
-			if (map[y][width - 1] == '0' || map[y][0] == '0')
-				return (ft_putstr_fd("the map not surrounded by walls\n", 2),
-					1);
-			x++;
-		}
+		if (map[y][0] != '1' || map[y][width - 1] != '1')
+			return (ft_putstr_fd("the map not surrounded by walls\n", 2), 1);
 		y++;
 	}
 	return (0);

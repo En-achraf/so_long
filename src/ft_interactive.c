@@ -6,7 +6,7 @@
 /*   By: acennadi <acennadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 15:19:04 by acennadi          #+#    #+#             */
-/*   Updated: 2025/03/29 22:22:34 by acennadi         ###   ########.fr       */
+/*   Updated: 2025/04/01 14:28:45 by acennadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,12 @@ void	ft_count_collectibles(t_map *data)
 
 static void	move_player(t_map *data, int new_x, int new_y)
 {
-	ft_putstr_fd("PLAYER_MOVE : ", 1);
-	ft_putnbr_fd(data->player.player_steps, 1);
-	ft_putchar_fd('\n', 1);
+	if (data->grad[new_y][new_x] != 'E')
+	{
+		ft_putstr_fd("PLAYER_MOVE : ", 1);
+		ft_putnbr_fd(data->player.player_steps, 1);
+		ft_putchar_fd('\n', 1);
+	}
 	if (data->grad[new_y][new_x] == 'C')
 		data->collectibles--;
 	if (data->grad[new_y][new_x] == 'E' && data->collectibles == 0)
